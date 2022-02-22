@@ -1,4 +1,5 @@
-lms\PrimaryController.class
+lms\models\User.class
 lms\App.class
+lms\helpers\Connect.class
 module-info.class
-lms\SecondaryController.class
+lms\controllers\LoginController.class

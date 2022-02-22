@@ -1,0 +1,41 @@
+.root{
+    -fx-background-color: rgb(241, 241, 241);
+}
+
+.label{
+    -fx-font-family: "Lucida Console";
+}
+
+#titleHbox{
+    -fx-background-color: rgb(88, 25, 170);
+    
+}
+#navbar{
+    -fx-background-color: rgb(115, 45, 207);
+}
+
+#loginHbox{
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+.navbarBtn{
+    -fx-background-color: rgb(115, 45, 207);
+    -fx-border-radius: 0;
+}
+
+.navbarBtn:hover{
+    -fx-background-color:  rgb(178, 135, 233);
+    
+}
+.navbarBtn:pressed{
+    -fx-background-color: rgb(194, 192, 192);
+}
+
+.navbarBtn:focused{
+    -fx-background-color: rgb(241, 241, 241);
+    -fx-text-fill : "Black";
+}
+
+.tabHbox{
+    -fx-background-color: rgb(147, 67, 252);
+}
