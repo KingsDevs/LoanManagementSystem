@@ -19,6 +19,9 @@ public class Loan
     private String loanCreated;
     private String loanDueDate;
 
+    private String lender;
+
+
     public final static String[] LOAN_STATUSES = {"ACTIVE", "PAID", "DUE"};
     public final static String[] LOAN_TYPES = {"SHORT TERM", "LONG TERM"};
 
@@ -28,11 +31,12 @@ public class Loan
     public final static double MINIMUM = 10000;
     public final static double MAXIMUM = 100000;
 
-    public Loan(int coopMemberId, String loanType, double loanAmount, String loanStatus, String loanDueDate)
+    public Loan(int coopMemberId, String loanType, double loanAmount, double loanBalance, String loanStatus, String loanDueDate)
     {
         this.coopMemberId = coopMemberId;
         this.loanType = loanType;
         this.loanAmount = loanAmount;
+        this.loanBalance = loanBalance;
         this.loanStatus = loanStatus;
         this.loanDueDate = loanDueDate;
 
@@ -45,6 +49,11 @@ public class Loan
     public void setLoanId(int loanId)
     {
         this.loanId = loanId;
+    }
+
+    public void setLender(String lender)
+    {
+        this.lender = lender;
     }
 
     public int getCoopMemberId()
@@ -72,27 +81,9 @@ public class Loan
         return loanStatus;
     }
 
-    public String getLender() throws SQLException
+    public String getLender()
     {
-        String lender = new String();
-        String sql = "SELECT firstname, middlename, lastname "
-        + "FROM coop_members "
-        + "WHERE id = ? LIMIT 1";
-
-        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
-
-        preparedStatement.setInt(1, coopMemberId);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-        
-        String firstname = resultSet.getString("firstname");
-        String middlename = resultSet.getString("middlename");
-        String lastname = resultSet.getString("lastname");
-
-        lender  = lastname + ", " + firstname + ", " + middlename.charAt(0) + ".";
         return lender;
-
-
     }
 
     public String getLoanDueDate()
@@ -108,6 +99,15 @@ public class Loan
     public double getMonthly()
     {
         return loanAmount * INTEREST;
+    }
+
+    public static ResultSet getLoans() throws SQLException
+    {
+        String sql = "SELECT * FROM loans JOIN coop_members ON coop_member_id = coop_members.id";
+        ResultSet resultSet = Connect.getStatement().executeQuery(sql);
+
+        return resultSet;
+        
     }
 
 }

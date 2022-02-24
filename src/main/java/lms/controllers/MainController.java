@@ -41,7 +41,7 @@ public class MainController
     @FXML
     void addLoanAction(ActionEvent event) throws IOException 
     {
-        Pane setPane = getPane("addLoan");
+        Pane setPane = getPane("addLoanMain");
         mainPane.setCenter(setPane);
     }
 

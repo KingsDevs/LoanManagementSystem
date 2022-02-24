@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="432.0" prefWidth="672.0" stylesheets="@../../../../../../../Java/LoanMS/src/css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddLoanMain">
+<AnchorPane prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddLoanMainController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutY="32.0" prefHeight="64.0" prefWidth="679.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -28,7 +28,7 @@
          <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="672.0">
                <children>
-                  <Button fx:id="addLoanBtn" mnemonicParsing="false" onAction="#addMember" text="Add Loan" />
+                  <Button fx:id="addLoanBtn" mnemonicParsing="false" onAction="#addLoan" text="Add Loan" />
                </children>
                <padding>
                   <Insets right="10.0" />

@@ -1,3 +1,4 @@
+lms\controllers\AddLoanMainController.class
 lms\helpers\FormValidation.class
 lms\controllers\AddMember$1.class
 lms\models\User.class
@@ -5,6 +6,7 @@ lms\App.class
 lms\controllers\AddMember.class
 lms\models\CoopMember.class
 lms\helpers\Connect.class
+lms\models\Loan.class
 module-info.class
 lms\controllers\MainController.class
 lms\controllers\AddMemberMainController.class
