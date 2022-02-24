@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddMemberMainController">
+<AnchorPane prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddMemberMainController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutY="32.0" prefHeight="64.0" prefWidth="679.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

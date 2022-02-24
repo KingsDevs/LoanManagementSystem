@@ -1,9 +1,11 @@
 package lms.controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import lms.App;
 import lms.helpers.Connect;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,22 +79,24 @@ public class LoginController
                 validationText.setTextFill(Color.GREEN);
                 validationText.setText("You are login!");
 
-                // FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-                // Parent root = loader.load();
+                //URL formUrl = App.class.getClassLoader().getResource("fxml/main.fxml");
+                FXMLLoader loader = new FXMLLoader(App.loadFxml("main"));
+                System.out.println("ohyeaj");
+                Parent root = loader.load();
 
-                // MainController mainController = loader.getController();
+                MainController mainController = loader.getController();
                 
-                // mainController.setHome();
-                // //Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+                mainController.setHome();
+                // Parent root = FXMLLoader.load(formUrl);
                 
-                // Scene scene = loginBtn.getScene();
-                // Window window = scene.getWindow();
-                // Stage stage = (Stage)window;
+                Scene scene = loginBtn.getScene();
+                Window window = scene.getWindow();
+                Stage stage = (Stage)window;
 
-                // Scene mainScene = new Scene(root);
+                Scene mainScene = new Scene(root);
                 // mainScene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
-                // stage.setScene(mainScene);
-                // stage.show();
+                stage.setScene(mainScene);
+                stage.show();
             }
             else
             {

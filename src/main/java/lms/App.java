@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 
 /**
@@ -38,6 +39,19 @@ public class App extends Application {
     //     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/"+ fxml + ".fxml"));
     //     return fxmlLoader.load();
     // }
+
+    public static URL loadFxml(String fxmlName)
+    {
+        URL fileUrl = App.class.getResource("fxml/" + fxmlName + ".fxml");
+        return fileUrl;
+        
+        // if(fxmlLoader == null)
+        // {
+        //     System.out.println("Fucking Null");
+        // }
+        
+    }
+
 
     public static void main(String[] args) {
         launch();

@@ -2,4 +2,5 @@ lms\models\User.class
 lms\App.class
 lms\helpers\Connect.class
 module-info.class
+lms\controllers\MainController.class
 lms\controllers\LoginController.class
