@@ -1,6 +1,11 @@
 package lms.models;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+
+import lms.helpers.Connect;
 
 public class Loan 
 {
@@ -8,7 +13,7 @@ public class Loan
     private int coopMemberId;
     private String loanType;
     private double loanAmount;
-    private double loanPaidAmount;
+    private double loanBalance;
     private double serviceFee;
     private String loanStatus;
     private String loanCreated;
@@ -57,11 +62,6 @@ public class Loan
         return loanAmount;
     }
 
-    public double getLoanPaidAmount()
-    {
-        return loanPaidAmount;
-    }
-
     public double getServiceFee()
     {
         return serviceFee;
@@ -72,9 +72,42 @@ public class Loan
         return loanStatus;
     }
 
+    public String getLender() throws SQLException
+    {
+        String lender = new String();
+        String sql = "SELECT firstname, middlename, lastname "
+        + "FROM coop_members "
+        + "WHERE id = ? LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+
+        preparedStatement.setInt(1, coopMemberId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        String firstname = resultSet.getString("firstname");
+        String middlename = resultSet.getString("middlename");
+        String lastname = resultSet.getString("lastname");
+
+        lender  = lastname + ", " + firstname + ", " + middlename.charAt(0) + ".";
+        return lender;
+
+
+    }
+
     public String getLoanDueDate()
     {
         return loanDueDate;
+    }
+
+    public double getLoanBalance()
+    {
+        return loanBalance;
+    }
+
+    public double getMonthly()
+    {
+        return loanAmount * INTEREST;
     }
 
 }
