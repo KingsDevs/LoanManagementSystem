@@ -7,6 +7,8 @@ import lms.helpers.Connect;
 
 public class CoopMember 
 {
+
+    public int id;
     private String firstname;    
     private String middlename;    
     private String lastname;    
@@ -23,6 +25,11 @@ public class CoopMember
         this.position = position;
         this.address = address;
         this.age = age;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 
     public String getFirstname()
@@ -53,6 +60,11 @@ public class CoopMember
     public int getAge()
     {
         return age;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public static ResultSet getMembers() throws SQLException

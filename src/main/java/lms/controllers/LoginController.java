@@ -1,7 +1,6 @@
 package lms.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
 

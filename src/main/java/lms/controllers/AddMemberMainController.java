@@ -97,14 +97,16 @@ public class AddMemberMainController implements Initializable
 
             while (resultSet.next()) 
             {
-                data.add(new CoopMember(
+                CoopMember coopMember = new CoopMember(
                     resultSet.getString("firstname"), 
                     resultSet.getString("middlename"), 
                     resultSet.getString("lastname"), 
                     resultSet.getString("position"), 
                     resultSet.getString("address"),
-                    resultSet.getInt("age")
-                    ));
+                    resultSet.getInt("age"));
+                coopMember.setId(resultSet.getInt("id"));
+                data.add(coopMember);
+
             }
 
         } catch (SQLException e) {

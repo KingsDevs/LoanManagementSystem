@@ -22,7 +22,7 @@ public class App extends Application {
         
         Parent root = FXMLLoader.load(App.class.getResource("fxml/login.fxml"));
         Scene scene = new Scene(root);
-
+        
         primaryStage.setTitle("Loan Management System");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
@@ -44,11 +44,6 @@ public class App extends Application {
     {
         URL fileUrl = App.class.getResource("fxml/" + fxmlName + ".fxml");
         return fileUrl;
-        
-        // if(fxmlLoader == null)
-        // {
-        //     System.out.println("Fucking Null");
-        // }
         
     }
 
