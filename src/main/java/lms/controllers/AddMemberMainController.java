@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
+import lms.App;
 import lms.models.CoopMember;
 
 public class AddMemberMainController implements Initializable
@@ -76,7 +76,7 @@ public class AddMemberMainController implements Initializable
     void addMember(ActionEvent event) throws IOException 
     {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addMembers.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("addMembers"));
         Parent root = loader.load();
 
         Scene scene = addMemberBtn.getScene();
@@ -84,7 +84,6 @@ public class AddMemberMainController implements Initializable
         Stage stage = (Stage)window;
         
         Scene addMemberScene = new Scene(root);
-        addMemberScene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         stage.setScene(addMemberScene);
         stage.show();
 

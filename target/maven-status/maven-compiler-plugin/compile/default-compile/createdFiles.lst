@@ -1,5 +1,8 @@
+lms\helpers\FormValidation.class
+lms\controllers\AddMember$1.class
 lms\models\User.class
 lms\App.class
+lms\controllers\AddMember.class
 lms\models\CoopMember.class
 lms\helpers\Connect.class
 module-info.class
