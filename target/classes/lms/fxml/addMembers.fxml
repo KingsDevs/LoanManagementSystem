@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handle" prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddMember">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handle" prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddMember">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="489.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
