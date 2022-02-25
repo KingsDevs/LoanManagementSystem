@@ -56,6 +56,11 @@ public class Loan
         this.lender = lender;
     }
 
+    public int getLoanId()
+    {
+        return loanId;
+    }
+
     public int getCoopMemberId()
     {
         return coopMemberId;
