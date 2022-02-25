@@ -47,6 +47,12 @@ public class App extends Application {
         
     }
 
+    public static URL loadDb()
+    {
+        URL dbUrl = App.class.getResource("db/dblms.db");
+        return dbUrl;
+    }
+
 
     public static void main(String[] args) {
         launch();

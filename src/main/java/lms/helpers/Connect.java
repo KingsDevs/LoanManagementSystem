@@ -1,7 +1,7 @@
 package lms.helpers;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+// import java.nio.file.Path;
+// import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,14 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import lms.App;
 import lms.models.User;
 
 public class Connect 
 {
 
-    private static Path dbFilePath = Paths.get("/db/dblms.db");
+    // private static Path dbFilePath = Paths.get("/db/dblms.db");
 
-    private static String dbUrl = "E:\\myCraft\\Java Maven\\loanmanagementsystem\\src\\main\\java\\lms\\db\\dblms.db";
+    private static String dbUrl = App.loadDb().toString();
     private static Connection connection = null;
     private static Statement statement = null;
     private static PreparedStatement preparedStatement = null;
@@ -52,7 +53,7 @@ public class Connect
         
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:/" + dbUrl);
+            conn = DriverManager.getConnection("jdbc:sqlite:" + dbUrl);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
