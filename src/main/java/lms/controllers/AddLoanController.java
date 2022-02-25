@@ -1,5 +1,6 @@
 package lms.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -7,12 +8,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import lms.App;
+import lms.models.Loan;
 
 public class AddLoanController implements Initializable
 {
@@ -74,6 +82,9 @@ public class AddLoanController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) 
     {
+
+        loanTypeChoiceBox.getItems().addAll(Loan.LOAN_TYPES);
+
         ageField.textProperty().addListener(new ChangeListener<String>(){
 
             @Override
@@ -96,9 +107,23 @@ public class AddLoanController implements Initializable
     }
 
     @FXML
-    void cancel(ActionEvent event) 
+    void cancel(ActionEvent event) throws IOException 
     {
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("main"));
+        Parent root = loader.load();
 
+        MainController mainController = loader.getController();
+            
+        mainController.setAddLoanMain();
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        
+        Scene scene = addLoanBtn.getScene();
+        Window window = scene.getWindow();
+        Stage stage = (Stage)window;
+
+        Scene mainScene = new Scene(root);
+        stage.setScene(mainScene);
+        stage.show();
     }
 
     @FXML

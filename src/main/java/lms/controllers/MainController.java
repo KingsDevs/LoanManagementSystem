@@ -71,6 +71,11 @@ public class MainController
         addMemberAction(new ActionEvent());
     }
 
+    public void setAddLoanMain() throws IOException
+    {
+        addLoanAction(new ActionEvent());
+    }
+
 
     private Pane getPane(String paneName) throws IOException
     {
