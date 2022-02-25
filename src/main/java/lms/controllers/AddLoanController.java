@@ -16,10 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lms.App;
+import lms.helpers.FormValidation;
 import lms.models.Loan;
 
 public class AddLoanController implements Initializable
@@ -103,7 +105,85 @@ public class AddLoanController implements Initializable
     @FXML
     void addLoan(ActionEvent event) 
     {
+        addLoanBtn.setDisable(true);
 
+        String firstname = firstNameField.getText();
+        String middlename = middleNameField.getText();
+        String lastName = lastnameField.getText();
+        String address = addressVield.getText();
+        String position = positionField.getText();
+        String sAge = ageField.getText();
+        String sLoanAmount = loanAmountField.getText();
+        String loanType = loanTypeChoiceBox.getValue();
+
+        boolean isCleared = true;
+
+        firstNameValidation.setText("");
+        lastnameValidation.setText("");
+        middleNameValidation.setText("");
+        addressValidation.setText("");
+        positionValidation.setText("");
+        loanAmountValidation.setText("");
+        loanTypeValidation.setText("");
+        mainFormValidationLabel.setText("");
+
+        if(firstname.isEmpty() || firstname.isBlank())
+        {
+            firstNameValidation.setText(FormValidation.emptyField("First Name"));
+            isCleared = false;
+        }
+
+        if(middlename.isEmpty() || middlename.isBlank())
+        {
+            middleNameValidation.setText(FormValidation.emptyField("Middle Name"));
+            isCleared = false;
+        }
+
+        if(lastName.isEmpty() || lastName.isBlank())
+        {
+            lastnameValidation.setText(FormValidation.emptyField("Last Name"));
+            isCleared = false;
+        }
+
+        if(address.isEmpty() || address.isBlank())
+        {
+            addressValidation.setText(FormValidation.emptyField("Address"));
+            isCleared = false;
+        }
+
+        if(position.isEmpty() || position.isBlank())
+        {
+            positionValidation.setText(FormValidation.emptyField("Position"));
+            isCleared = false;
+        }
+
+
+        if(loanType == null)
+        {
+            loanTypeValidation.setText(FormValidation.emptyField("Loan Type"));
+            isCleared = false;
+        }
+
+        if (sAge.isEmpty() || sAge.isBlank())
+        {
+            ageValidation.setText(FormValidation.emptyField("Age"));
+            isCleared = false;
+        }
+        else
+        {
+            if(Integer.parseInt(sAge) < 18)
+            {
+                ageValidation.setText("You are too young!");
+                isCleared = false;
+            }
+            
+        }
+
+        if(sLoanAmount.isEmpty() || sLoanAmount.isBlank())
+        {
+            loanAmountValidation.setText(FormValidation.emptyField("Loan Amount"));
+            isCleared = false;
+        }
     }
 
     @FXML
@@ -127,9 +207,12 @@ public class AddLoanController implements Initializable
     }
 
     @FXML
-    void handle(KeyEvent event) 
+    void handle(KeyEvent keyEvent) 
     {
-
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) 
+        {
+           addLoan(new ActionEvent());
+        }
     }
 
     
