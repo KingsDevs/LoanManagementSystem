@@ -12,4 +12,5 @@ lms\helpers\FormValidation.class
 lms\controllers\AddMember$1.class
 lms\helpers\Connect.class
 lms\controllers\MainController.class
+lms\controllers\AddLoanController$2.class
 lms\controllers\AddMemberMainController.class
