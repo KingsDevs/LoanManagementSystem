@@ -41,17 +41,6 @@ public class AddLoanController implements Initializable
     @FXML
     private Button addLoanBtn;
 
-    @FXML
-    private Label addressValidation;
-
-    @FXML
-    private TextField addressVield;
-
-    @FXML
-    private TextField ageField;
-
-    @FXML
-    private Label ageValidation;
 
     @FXML
     private TextField firstNameField;
@@ -86,11 +75,6 @@ public class AddLoanController implements Initializable
     @FXML
     private Label middleNameValidation;
 
-    @FXML
-    private TextField positionField;
-
-    @FXML
-    private Label positionValidation;
 
     private AutoCompletionBinding<String> autoCompletionBinding;
     private ArrayList<String> _possibleSuggestions = new ArrayList<String>();
@@ -102,18 +86,6 @@ public class AddLoanController implements Initializable
 
         loanTypeChoiceBox.getItems().addAll(Loan.LOAN_TYPES);
 
-        ageField.textProperty().addListener(new ChangeListener<String>(){
-
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
-            {
-                if(!newValue.matches("\\d*"))
-                {
-                    ageField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-
-        });
 
         loanAmountField.textProperty().addListener(new ChangeListener<String>(){
 
@@ -194,9 +166,6 @@ public class AddLoanController implements Initializable
         String firstname = firstNameField.getText();
         String middlename = middleNameField.getText();
         String lastName = lastnameField.getText();
-        String address = addressVield.getText();
-        String position = positionField.getText();
-        String sAge = ageField.getText();
         String sLoanAmount = loanAmountField.getText();
         String loanType = loanTypeChoiceBox.getValue();
 
@@ -205,8 +174,6 @@ public class AddLoanController implements Initializable
         firstNameValidation.setText("");
         lastnameValidation.setText("");
         middleNameValidation.setText("");
-        addressValidation.setText("");
-        positionValidation.setText("");
         loanAmountValidation.setText("");
         loanTypeValidation.setText("");
         mainFormValidationLabel.setText("");
@@ -229,17 +196,6 @@ public class AddLoanController implements Initializable
             isCleared = false;
         }
 
-        if(address.isEmpty() || address.isBlank())
-        {
-            addressValidation.setText(FormValidation.emptyField("Address"));
-            isCleared = false;
-        }
-
-        if(position.isEmpty() || position.isBlank())
-        {
-            positionValidation.setText(FormValidation.emptyField("Position"));
-            isCleared = false;
-        }
 
 
         if(loanType == null)
@@ -248,20 +204,6 @@ public class AddLoanController implements Initializable
             isCleared = false;
         }
 
-        if (sAge.isEmpty() || sAge.isBlank())
-        {
-            ageValidation.setText(FormValidation.emptyField("Age"));
-            isCleared = false;
-        }
-        else
-        {
-            if(Integer.parseInt(sAge) < 18)
-            {
-                ageValidation.setText("You are too young!");
-                isCleared = false;
-            }
-            
-        }
 
         if(sLoanAmount.isEmpty() || sLoanAmount.isBlank())
         {
