@@ -130,6 +130,7 @@ public class AddLoanController implements Initializable
 
         autoCompletionBinding = TextFields.bindAutoCompletion(firstNameField, possibleSuggestions);
         firstNameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        Boolean haveSearched = false;
 
             @Override
             public void handle(KeyEvent keyEvent) 
@@ -137,17 +138,36 @@ public class AddLoanController implements Initializable
                 String firstname = firstNameField.getText();
                 if(!(firstname.isEmpty() || firstname.isBlank()))
                 {
+                    if(keyEvent.getCode().equals(KeyCode.ENTER) && haveSearched)
+                    {
+                        try 
+                        {
+                            CoopMember coopMember = CoopMember.getMemberByFirstname(firstname);
+                            firstNameField.setText(coopMember.getFirstname());
+                            middleNameField.setText(coopMember.getMiddlename());
+                            lastnameField.setText(coopMember.getLastname());
+                        } 
+                        catch (SQLException e) 
+                        {
+                           
+                            e.printStackTrace();
+                        }
+                        
+                    }
                     try 
                     {
-                        ResultSet resultSet = CoopMember.getMemberByFirstname(firstname);
+                        ResultSet resultSet = CoopMember.searchMemberByFirstname(firstname);
 
                         while (resultSet.next()) 
                         {
                              String suggestion = resultSet.getString("firstname");
                              possibleSuggestions.add(suggestion);
+                             haveSearched = true;
                              
                         }
                         autoCompletionBinding = TextFields.bindAutoCompletion(firstNameField, possibleSuggestions);
+
+                        
                     } 
                     catch (SQLException e)
                     {

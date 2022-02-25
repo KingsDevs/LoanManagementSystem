@@ -122,7 +122,7 @@ public class CoopMember
         }
     }
 
-    public static ResultSet getMemberByFirstname(String firstname) throws SQLException
+    public static ResultSet searchMemberByFirstname(String firstname) throws SQLException
     {
         String sql ="SELECT * "
                     + "FROM coop_members "
@@ -131,9 +131,35 @@ public class CoopMember
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
         preparedStatement.setString(1, "%"+ firstname + "%");
-        
+
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet;
         
+    }
+
+    public static CoopMember getMemberByFirstname(String firstname) throws SQLException
+    {
+        String sql ="SELECT * "
+                    + "FROM coop_members "
+                    + "WHERE firstname = ?"
+                    + " LIMIT 1";
+                    
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setString(1, firstname);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        CoopMember coopMember = new CoopMember(resultSet.getString("firstname"), 
+                                               resultSet.getString("middlename"), 
+                                               resultSet.getString("lastname"), 
+                                               resultSet.getString("position"), 
+                                               resultSet.getString("address"), 
+                                               resultSet.getInt("age")
+                                              );
+
+        
+    
+
+        return coopMember;
     }
 }
