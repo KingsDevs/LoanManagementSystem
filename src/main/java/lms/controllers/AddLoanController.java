@@ -2,11 +2,20 @@ package lms.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +31,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lms.App;
 import lms.helpers.FormValidation;
+import lms.models.CoopMember;
 import lms.models.Loan;
+
 
 public class AddLoanController implements Initializable
 {
@@ -81,6 +92,10 @@ public class AddLoanController implements Initializable
     @FXML
     private Label positionValidation;
 
+    private AutoCompletionBinding<String> autoCompletionBinding;
+    private ArrayList<String> _possibleSuggestions = new ArrayList<String>();
+    private Set<String> possibleSuggestions = new HashSet<>(_possibleSuggestions);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) 
     {
@@ -111,6 +126,42 @@ public class AddLoanController implements Initializable
                 }
             }
 
+        });
+
+        autoCompletionBinding = TextFields.bindAutoCompletion(firstNameField, possibleSuggestions);
+        firstNameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent keyEvent) 
+            {
+                String firstname = firstNameField.getText();
+                if(!(firstname.isEmpty() || firstname.isBlank()))
+                {
+                    try 
+                    {
+                        ResultSet resultSet = CoopMember.getMemberByFirstname(firstname);
+
+                        while (resultSet.next()) 
+                        {
+                             String suggestion = resultSet.getString("firstname");
+                             possibleSuggestions.add(suggestion);
+                             
+                        }
+                        autoCompletionBinding = TextFields.bindAutoCompletion(firstNameField, possibleSuggestions);
+                    } 
+                    catch (SQLException e)
+                    {
+                        
+                        e.printStackTrace();
+                    }
+
+                }
+                else
+                {
+                    possibleSuggestions.clear();
+                }
+            }
+            
         });
         
     }
@@ -222,10 +273,10 @@ public class AddLoanController implements Initializable
     @FXML
     void handle(KeyEvent keyEvent) 
     {
-        if (keyEvent.getCode().equals(KeyCode.ENTER)) 
-        {
-           addLoan(new ActionEvent());
-        }
+        // if (keyEvent.getCode().equals(KeyCode.ENTER)) 
+        // {
+        //    addLoan(new ActionEvent());
+        // }
     }
 
     

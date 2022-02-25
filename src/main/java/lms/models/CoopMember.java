@@ -121,4 +121,19 @@ public class CoopMember
             e.printStackTrace();
         }
     }
+
+    public static ResultSet getMemberByFirstname(String firstname) throws SQLException
+    {
+        String sql ="SELECT * "
+                    + "FROM coop_members "
+                    + "WHERE firstname LIKE ?"
+                    + " LIMIT 5";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setString(1, "%"+ firstname + "%");
+        
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet;
+        
+    }
 }
