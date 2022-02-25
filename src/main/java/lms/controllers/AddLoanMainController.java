@@ -1,5 +1,6 @@
 package lms.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,11 +9,17 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import lms.App;
 import lms.models.Loan;
 
 public class AddLoanMainController implements Initializable
@@ -62,9 +69,18 @@ public class AddLoanMainController implements Initializable
     }
 
     @FXML
-    void addLoan(ActionEvent event) 
+    void addLoan(ActionEvent event) throws IOException 
     {
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("addLoan"));
+        Parent root = loader.load();
 
+        Scene scene = addLoanBtn.getScene();
+        Window window = scene.getWindow();
+        Stage stage = (Stage)window;
+        
+        Scene addLoanScene = new Scene(root);
+        stage.setScene(addLoanScene);
+        stage.show();
     }
 
     public void updateTable() throws SQLException
