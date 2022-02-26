@@ -84,6 +84,7 @@ public class AddMemberMainController implements Initializable
         
         Scene addMemberScene = new Scene(root);
         stage.setScene(addMemberScene);
+        stage.setMaximized(true);
         stage.show();
 
     }

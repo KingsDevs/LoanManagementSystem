@@ -210,6 +210,18 @@ public class AddLoanController implements Initializable
             loanAmountValidation.setText(FormValidation.emptyField("Loan Amount"));
             isCleared = false;
         }
+
+        try {
+            if (!CoopMember.isExist(firstname, middlename, lastName)) 
+            {
+                mainFormValidationLabel.setText("Coop Member Doesn't Exist. Must Register First!");
+                isCleared = false;
+            }
+        } catch (SQLException e) {
+            
+            e.printStackTrace();
+        }
+
     }
 
     @FXML

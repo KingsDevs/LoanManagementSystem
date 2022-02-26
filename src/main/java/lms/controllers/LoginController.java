@@ -95,6 +95,7 @@ public class LoginController
                 Scene mainScene = new Scene(root);
                 // mainScene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
                 stage.setScene(mainScene);
+                stage.setMaximized(true);
                 stage.show();
             }
             else

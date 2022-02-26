@@ -80,6 +80,7 @@ public class AddLoanMainController implements Initializable
         
         Scene addLoanScene = new Scene(root);
         stage.setScene(addLoanScene);
+        stage.setMaximized(true);
         stage.show();
     }
 

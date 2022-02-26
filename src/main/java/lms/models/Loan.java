@@ -115,4 +115,9 @@ public class Loan
         
     }
 
+    public static void insertLoans(int coopMemberId, String loanType, double loanAmount)
+    {
+        
+    }
+
 }
