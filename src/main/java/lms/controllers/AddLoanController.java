@@ -222,6 +222,15 @@ public class AddLoanController implements Initializable
             e.printStackTrace();
         }
 
+        if(isCleared)
+        {
+            
+        }
+        else
+        {
+            addLoanBtn.setDisable(false);
+        }
+
     }
 
     @FXML

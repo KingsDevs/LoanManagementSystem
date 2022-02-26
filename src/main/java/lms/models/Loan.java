@@ -31,6 +31,9 @@ public class Loan
     public final static double MINIMUM = 10000;
     public final static double MAXIMUM = 100000;
 
+    public final static int SHORT_TERM_MONTHS_DUE = 6;
+    public final static int LONG_TERM_MONTHS_DUE = 12;
+
     public Loan(int coopMemberId, String loanType, double loanAmount, double loanBalance, String loanStatus, String loanDueDate)
     {
         this.coopMemberId = coopMemberId;
@@ -117,7 +120,35 @@ public class Loan
 
     public static void insertLoans(int coopMemberId, String loanType, double loanAmount)
     {
-        
+        String sql = "INSERT INTO loans(coop_member_id, loan_type, loan_amount, loan_balance, service_fee, loan_status, loan_created, loan_due_date) "
+                    +"VALUES(?,?,?,?,?,?,?,?)";
+
+        LocalDate todayDate = LocalDate.now();
+        try (PreparedStatement preparedStatement = Connect.getPreparedStatement(sql)) 
+        {
+            preparedStatement.setInt(1, coopMemberId);
+            preparedStatement.setString(2, loanType);
+            preparedStatement.setDouble(3, loanAmount);
+            preparedStatement.setDouble(4, loanAmount);
+            preparedStatement.setDouble(5, loanAmount * SERVICE_FEE_RATE);
+            preparedStatement.setString(6, LOAN_STATUSES[0]);
+            preparedStatement.setString(7, todayDate.toString());
+
+            if(loanType.equals(LOAN_TYPES[0]))
+            {
+                preparedStatement.setString(8, todayDate.plusMonths(SHORT_TERM_MONTHS_DUE).toString());
+            }
+            else
+            {
+                preparedStatement.setString(8, todayDate.plusMonths(LONG_TERM_MONTHS_DUE).toString());
+            }
+
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            
+            e.printStackTrace();
+        }
     }
 
 }
