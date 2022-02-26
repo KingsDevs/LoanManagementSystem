@@ -64,6 +64,9 @@ public class AddLoanMainController implements Initializable
             updateTable();
         } catch (SQLException e) {
            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         
     }
@@ -84,7 +87,7 @@ public class AddLoanMainController implements Initializable
         stage.show();
     }
 
-    public void updateTable() throws SQLException
+    public void updateTable() throws SQLException, IOException
     {
         ObservableList<Loan> data = loanListTableView.getItems();
         

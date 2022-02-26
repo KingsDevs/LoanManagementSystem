@@ -1,4 +1,5 @@
 package lms.models;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,13 +68,13 @@ public class CoopMember
         this.id = id;
     }
 
-    public static ResultSet getMembers() throws SQLException
+    public static ResultSet getMembers() throws SQLException, IOException
     {
         ResultSet resultSet = Connect.getStatement().executeQuery("SELECT * FROM coop_members ORDER BY lastname");
         return resultSet;
     }
 
-    public static boolean isExist(String firstname, String middlename, String lastname) throws SQLException
+    public static boolean isExist(String firstname, String middlename, String lastname) throws SQLException, IOException
     {
         String sql = "SELECT firstname, middlename, lastname "
                    + "FROM coop_members "
@@ -101,7 +102,7 @@ public class CoopMember
         return false;
     }
 
-    public void insertCoopMember()
+    public void insertCoopMember() throws IOException
     {
         String sql = "INSERT INTO coop_members(firstname, middlename, lastname, address, position, age) "
                     +"VALUES(?,?,?,?,?,?)";
@@ -122,7 +123,7 @@ public class CoopMember
         }
     }
 
-    public static ResultSet searchMemberByFirstname(String firstname) throws SQLException
+    public static ResultSet searchMemberByFirstname(String firstname) throws SQLException, IOException
     {
         String sql ="SELECT * "
                     + "FROM coop_members "
@@ -137,7 +138,7 @@ public class CoopMember
         
     }
 
-    public static CoopMember getMemberByFirstname(String firstname) throws SQLException
+    public static CoopMember getMemberByFirstname(String firstname) throws SQLException, IOException
     {
         String sql ="SELECT * "
                     + "FROM coop_members "
@@ -161,5 +162,25 @@ public class CoopMember
     
 
         return coopMember;
+    }
+
+    public static int getMemberIdFromDb(String firstname, String middlename, String lastname) throws SQLException, IOException
+    {
+        String sql ="SELECT id "
+                    + "FROM coop_members "
+                    + "WHERE firstname = ?"
+                    + " AND middlename = ?"
+                    + " AND lastname = ?"
+                    + " LIMIT 1";
+        
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setString(1, firstname);
+        preparedStatement.setString(2, middlename);
+        preparedStatement.setString(3, lastname);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet.getInt("id");
+        
     }
 }

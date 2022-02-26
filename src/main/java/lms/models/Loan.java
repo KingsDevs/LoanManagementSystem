@@ -1,5 +1,6 @@
 package lms.models;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -109,7 +110,7 @@ public class Loan
         return loanAmount * INTEREST;
     }
 
-    public static ResultSet getLoans() throws SQLException
+    public static ResultSet getLoans() throws SQLException, IOException
     {
         String sql = "SELECT * FROM loans JOIN coop_members ON coop_member_id = coop_members.id";
         ResultSet resultSet = Connect.getStatement().executeQuery(sql);
@@ -118,7 +119,7 @@ public class Loan
         
     }
 
-    public static void insertLoans(int coopMemberId, String loanType, double loanAmount)
+    public static void insertLoans(int coopMemberId, String loanType, double loanAmount) throws IOException
     {
         String sql = "INSERT INTO loans(coop_member_id, loan_type, loan_amount, loan_balance, service_fee, loan_status, loan_created, loan_due_date) "
                     +"VALUES(?,?,?,?,?,?,?,?)";

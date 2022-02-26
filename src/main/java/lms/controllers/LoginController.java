@@ -40,7 +40,7 @@ public class LoginController
 
 
 
-    public LoginController()
+    public LoginController() throws IOException
     {
 
         try {
@@ -63,6 +63,7 @@ public class LoginController
     @FXML
     void loginBtnClicked(ActionEvent event) throws SQLException, IOException 
     {
+        //System.out.println(App.getApplicationPath());
         String username = usernameField.getText();
         String password = passwordField.getText();
 

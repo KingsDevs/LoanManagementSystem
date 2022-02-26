@@ -67,7 +67,12 @@ public class AddMemberMainController implements Initializable
         //     e.printStackTrace();
         // }
         
-        updateTable();
+        try {
+            updateTable();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
     }
 
@@ -89,7 +94,7 @@ public class AddMemberMainController implements Initializable
 
     }
 
-    public void updateTable()
+    public void updateTable() throws IOException
     {
         ObservableList<CoopMember> data = memberTableView.getItems();
         

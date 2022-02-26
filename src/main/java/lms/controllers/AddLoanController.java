@@ -123,6 +123,9 @@ public class AddLoanController implements Initializable
                         {
                            
                             e.printStackTrace();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
                         }
                         
                     }
@@ -145,6 +148,9 @@ public class AddLoanController implements Initializable
                     {
                         
                         e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
 
                 }
@@ -159,7 +165,7 @@ public class AddLoanController implements Initializable
     }
 
     @FXML
-    void addLoan(ActionEvent event) 
+    void addLoan(ActionEvent event) throws SQLException, IOException 
     {
         addLoanBtn.setDisable(true);
 
@@ -168,6 +174,8 @@ public class AddLoanController implements Initializable
         String lastName = lastnameField.getText();
         String sLoanAmount = loanAmountField.getText();
         String loanType = loanTypeChoiceBox.getValue();
+
+        int coopMemberId;
 
         boolean isCleared = true;
 
@@ -210,6 +218,21 @@ public class AddLoanController implements Initializable
             loanAmountValidation.setText(FormValidation.emptyField("Loan Amount"));
             isCleared = false;
         }
+        else
+        {
+            if(Double.parseDouble(sLoanAmount) < Loan.MINIMUM)
+            {
+                loanAmountValidation.setText("The minimum loan you can avail is " + Loan.MINIMUM);
+                isCleared = false;
+            }
+
+            if(Double.parseDouble(sLoanAmount) > Loan.MAXIMUM)
+            {
+                loanAmountValidation.setText("The maximum loan you can avail is " + Loan.MAXIMUM);
+                isCleared = false;
+            }
+
+        }
 
         try {
             if (!CoopMember.isExist(firstname, middlename, lastName)) 
@@ -224,7 +247,9 @@ public class AddLoanController implements Initializable
 
         if(isCleared)
         {
-            
+            coopMemberId = CoopMember.getMemberIdFromDb(firstname, middlename, lastName);
+            Loan.insertLoans(coopMemberId, loanType, Double.parseDouble(sLoanAmount));
+            cancel(new ActionEvent());
         }
         else
         {

@@ -1,5 +1,6 @@
 package lms.helpers;
 
+import java.io.IOException;
 // import java.nio.file.Path;
 // import java.nio.file.Paths;
 import java.sql.Connection;
@@ -17,18 +18,18 @@ public class Connect
 
     // private static Path dbFilePath = Paths.get("/db/dblms.db");
 
-    private static String dbUrl = App.loadDb().toString();
+    // private static String dbUrl = App.loadDb().toString();
     private static Connection connection = null;
     private static Statement statement = null;
     private static PreparedStatement preparedStatement = null;
 
-    public static PreparedStatement getPreparedStatement(String sql) throws SQLException
+    public static PreparedStatement getPreparedStatement(String sql) throws SQLException, IOException
     {
         preparedStatement = getConnection().prepareStatement(sql);
         return preparedStatement;
     }
 
-    public static Statement getStatement() throws SQLException
+    public static Statement getStatement() throws SQLException, IOException
     {
         if(statement == null)
         {
@@ -38,7 +39,7 @@ public class Connect
         return statement;
     }
 
-    public static Connection getConnection()
+    public static Connection getConnection() throws IOException
     {
         if (connection == null) 
         {
@@ -48,19 +49,23 @@ public class Connect
         return connection;
     }
 
-    private static Connection connect() {
+    private static Connection connect() throws IOException {
         // SQLite connection string
         
         Connection conn = null;
+        String dbUrl = App.getApplicationPath() + "/db/dblms.db";
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:" + dbUrl);
+            // Properties config = new Properties();
+            // config.setProperty("open_mode", "0"); 
+
+            conn = DriverManager.getConnection("jdbc:sqlite:/" + dbUrl);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return conn;
     }
 
-    public ResultSet select(String tableName, String columns)
+    public ResultSet select(String tableName, String columns) throws IOException
     {
 
         String sql = "SELECT " + columns + " FROM " + tableName;

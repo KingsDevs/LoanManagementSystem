@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -16,6 +17,7 @@ import java.net.URL;
 public class App extends Application {
 
     // private static Scene scene = new Scene(null);
+    
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -54,9 +56,16 @@ public class App extends Application {
         return dbUrl;
     }
 
+    public static String getApplicationPath() throws IOException
+    {
+        String path = new File(".").getCanonicalPath();
+        return path;
+    }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         launch();
+        
     }
 
 }
