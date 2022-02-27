@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lms.App;
@@ -49,6 +50,12 @@ public class AddLoanMainController implements Initializable
     @FXML
     private TableColumn<Loan, String> statusCol;
 
+    @FXML
+    private Button payLoanBtn;
+
+    @FXML
+    private Button viewLoanBtn;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -60,14 +67,32 @@ public class AddLoanMainController implements Initializable
         dueDateCol.setCellValueFactory(new PropertyValueFactory<Loan, String>("loanDueDate"));
         statusCol.setCellValueFactory(new PropertyValueFactory<Loan, String>("loanStatus"));
 
+        ObservableList<Loan> data = loanListTableView.getItems();
         try {
-            updateTable();
+            updateTable(data);
         } catch (SQLException e) {
            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        payLoanBtn.setDisable(true);
+        viewLoanBtn.setDisable(true);
+
+        loanListTableView.getSelectionModel().selectedItemProperty().addListener(
+            (obs , oldSelection, newSelection) ->  {
+                if(newSelection != null)
+                {
+                    payLoanBtn.setDisable(false);
+                    viewLoanBtn.setDisable(false);
+                }
+                else
+                {
+                    payLoanBtn.setDisable(true);
+                    viewLoanBtn.setDisable(true);
+                }
+            }
+        );
         
     }
 
@@ -87,10 +112,26 @@ public class AddLoanMainController implements Initializable
         stage.show();
     }
 
-    public void updateTable() throws SQLException, IOException
+    @FXML
+    void payLoan(ActionEvent event) 
     {
-        ObservableList<Loan> data = loanListTableView.getItems();
-        
+        System.out.println("pay loan");
+    }
+
+    @FXML
+    void viewLoan(ActionEvent event) 
+    {
+        System.out.println("view loan");
+    }
+
+    @FXML
+    void clickOutside(MouseEvent event) 
+    {
+        loanListTableView.getSelectionModel().clearSelection();
+    }
+
+    public void updateTable(ObservableList<Loan> data) throws SQLException, IOException
+    {
         ResultSet resultSet = Loan.getLoans();
 
             while (resultSet.next()) 

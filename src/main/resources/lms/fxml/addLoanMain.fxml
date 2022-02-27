@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="432.0" prefWidth="672.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddLoanMainController">
+<AnchorPane onMouseClicked="#clickOutside" prefHeight="481.0" prefWidth="739.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.AddLoanMainController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutY="32.0" prefHeight="64.0" prefWidth="679.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -44,6 +44,15 @@
                   <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="96.0" text="Status" />
                </columns>
             </TableView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="739.0" spacing="10.0">
+               <children>
+                  <Button fx:id="viewLoanBtn" mnemonicParsing="false" onAction="#viewLoan" prefHeight="25.0" prefWidth="78.0" text="View Loan" />
+                  <Button fx:id="payLoanBtn" mnemonicParsing="false" onAction="#payLoan" prefHeight="25.0" prefWidth="73.0" text="Pay Loan" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
          </children>
       </VBox>
    </children>
