@@ -2,6 +2,7 @@ package lms.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,7 +63,7 @@ public class ViewLoanDetailsController
     private Button printBtn;
 
     @FXML
-    private ListView<?> scheduleList;
+    private ListView<String> scheduleList;
 
     private Loan loan;
 
@@ -97,11 +98,33 @@ public class ViewLoanDetailsController
     
     }
 
+    private void updateScheduleList()
+    {
+        LocalDate loanCreated = LocalDate.parse(loan.getLoanCreated());
+
+        int limit;
+        if(loan.getLoanType().equals(Loan.LOAN_TYPES[0]))
+        {
+            limit = Loan.SHORT_TERM_MONTHS_DUE;
+        }
+        else
+        {
+            limit = Loan.LONG_TERM_MONTHS_DUE;
+        }
+
+        for(int i = 1; i <= limit; i++)
+        {
+            loanCreated = loanCreated.plusMonths(1);
+            scheduleList.getItems().add(i  + ". " + loanCreated.toString());
+        }
+    }
+
     public void setLoan(Loan loan)
     {
         this.loan = loan;
         updateCoopMemberDetails();
         updateLoanDetails();
+        updateScheduleList();
     }
 
     @FXML
