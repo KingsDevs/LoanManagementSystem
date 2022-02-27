@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="553.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.ViewLoanDetailsController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="544.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Loan Details" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+      </HBox>
+      <VBox layoutY="52.0" prefHeight="581.0" prefWidth="553.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.0">
+         <children>
+            <VBox prefHeight="116.0" prefWidth="553.0" spacing="2.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="553.0">
+                     <children>
+                        <Label text="Coop Member Details:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </HBox>
+                  <Label fx:id="firstnameLabel" text="Firstname: ">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="middlenameLabel" text="Middle Name: ">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lastnameLabel" text="Last Name: ">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </VBox>
+            <GridPane prefHeight="111.0" prefWidth="547.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox prefHeight="116.0" prefWidth="553.0" spacing="2.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="553.0">
+                           <children>
+                              <Label text="Loan Details:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </HBox>
+                        <Label fx:id="loanTypeLabel" text="Loan Type: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="loanAmountLabel" text="Loan Amount: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="loanBalanceLabel" text="Loan Balance: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="116.0" prefWidth="553.0" spacing="2.0" GridPane.columnIndex="1">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="553.0">
+                           <children>
+                              <Label>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </HBox>
+                        <Label fx:id="loanStatusLabel" text="Loan Status: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="loanCreatedLabel" text="Loan Created: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dueDateLabel" text="Due Date: ">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </GridPane>
+            <VBox prefHeight="126.0" prefWidth="553.0" spacing="4.0">
+               <children>
+                  <Label text="List of schedules">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="scheduleList" prefHeight="131.0" prefWidth="523.0" />
+               </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="160.0" prefWidth="553.0" spacing="4.0">
+               <children>
+                  <Label text="Payments">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="paymentsTable" prefHeight="170.0" prefWidth="523.0">
+                    <columns>
+                      <TableColumn fx:id="idCol" prefWidth="67.0" text="ID" />
+                      <TableColumn fx:id="paymentDateCol" prefWidth="133.0" text="Payment Date" />
+                        <TableColumn fx:id="paymentAmountCol" prefWidth="154.0" text="Payment Amount" />
+                        <TableColumn fx:id="loanBalanceCol" prefWidth="168.0" text="Loan Balance" />
+                    </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox prefHeight="52.0" prefWidth="553.0">
+               <children>
+                  <GridPane prefHeight="26.0" prefWidth="666.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                           </children>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <Button fx:id="printBtn" mnemonicParsing="false" onAction="#print" text="Print" />
+                           </children>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

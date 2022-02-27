@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lms.App;
@@ -136,9 +137,21 @@ public class AddLoanMainController implements Initializable
     }
 
     @FXML
-    void viewLoan(ActionEvent event) 
+    void viewLoan(ActionEvent event) throws IOException 
     {
-        System.out.println("view loan");
+        
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("viewLoanDetails"));
+        Parent root = loader.load();
+
+        Stage viewLoanDetailsStage = new Stage();
+        viewLoanDetailsStage.setTitle("View Loan Details");
+
+        Scene viewLoanDetails = new Scene(root);
+        viewLoanDetailsStage.setScene(viewLoanDetails);
+
+        viewLoanDetailsStage.initModality(Modality.WINDOW_MODAL);
+        viewLoanDetailsStage.initOwner(addLoanBtn.getScene().getWindow());
+        viewLoanDetailsStage.show();
     }
 
     @FXML

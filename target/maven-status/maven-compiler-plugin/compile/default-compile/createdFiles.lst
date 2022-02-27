@@ -3,6 +3,7 @@ lms\models\User.class
 lms\App.class
 lms\controllers\AddMember.class
 lms\models\CoopMember.class
+lms\controllers\ViewLoanDetailsController.class
 lms\models\Loan.class
 lms\controllers\AddLoanController$1.class
 module-info.class
