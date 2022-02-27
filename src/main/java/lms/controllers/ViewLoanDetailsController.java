@@ -1,20 +1,28 @@
 package lms.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lms.models.CoopMember;
 import lms.models.Loan;
+import lms.models.LoanPayment;
 
-public class ViewLoanDetailsController 
+public class ViewLoanDetailsController implements Initializable
 {
 
     @FXML
@@ -24,16 +32,10 @@ public class ViewLoanDetailsController
     private Label firstnameLabel;
 
     @FXML
-    private TableColumn<?, ?> idCol;
-
-    @FXML
     private Label lastnameLabel;
 
     @FXML
     private Label loanAmountLabel;
-
-    @FXML
-    private TableColumn<?, ?> loanBalanceCol;
 
     @FXML
     private Label loanBalanceLabel;
@@ -51,13 +53,19 @@ public class ViewLoanDetailsController
     private Label middlenameLabel;
 
     @FXML
-    private TableColumn<?, ?> paymentAmountCol;
+    private TableColumn<LoanPayment, Integer> idCol;
 
     @FXML
-    private TableColumn<?, ?> paymentDateCol;
+    private TableColumn<LoanPayment, Double> paymentAmountCol;
 
     @FXML
-    private TableView<?> paymentsTable;
+    private TableColumn<LoanPayment, String> paymentDateCol;
+
+    @FXML
+    private TableColumn<LoanPayment, Double> loanBalanceCol;
+
+    @FXML
+    private TableView<LoanPayment> paymentsTable;
 
     @FXML
     private Button printBtn;
@@ -66,6 +74,38 @@ public class ViewLoanDetailsController
     private ListView<String> scheduleList;
 
     private Loan loan;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) 
+    {
+        idCol.setCellValueFactory(new PropertyValueFactory<LoanPayment, Integer>("paymentId"));
+        paymentDateCol.setCellValueFactory(new PropertyValueFactory<LoanPayment, String>("paymentDate"));
+        paymentAmountCol.setCellValueFactory(new PropertyValueFactory<LoanPayment, Double>("paymentAmount"));
+        loanBalanceCol.setCellValueFactory(new PropertyValueFactory<LoanPayment, Double>("loanBalance"));
+       
+        
+    }
+
+    private void updatePaymentTable() throws SQLException, IOException
+    {
+        ObservableList<LoanPayment> data = paymentsTable.getItems();
+        ResultSet resultSet = LoanPayment.getPayments(loan.getLoanId());
+
+        while(resultSet.next())
+        {
+            LoanPayment loanPayment = new LoanPayment(
+                loan.getLoanId(), 
+                resultSet.getDouble("payment_amount"), 
+                resultSet.getDouble("loan_balance")
+                );
+            
+            loanPayment.setPaymentId(resultSet.getInt("payment_id"));
+            loanPayment.setPaymentDate(resultSet.getString("payment_date"));
+
+            data.add(loanPayment);
+        }
+        
+    }
 
     private void updateCoopMemberDetails()
     {
@@ -125,6 +165,16 @@ public class ViewLoanDetailsController
         updateCoopMemberDetails();
         updateLoanDetails();
         updateScheduleList();
+
+        try {
+            updatePaymentTable();
+        } catch (SQLException e) {
+            
+            e.printStackTrace();
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -138,5 +188,6 @@ public class ViewLoanDetailsController
     {
 
     }
+
 
 }

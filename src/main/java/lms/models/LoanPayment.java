@@ -2,6 +2,7 @@ package lms.models;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -50,6 +51,24 @@ public class LoanPayment
     public void setPaymentId(int paymentId)
     {
         this.paymentId = paymentId;
+    }
+
+    public void setPaymentDate(String paymentDate)
+    {
+        this.paymentDate = paymentDate;
+    }
+
+    public static ResultSet getPayments(int loanId) throws SQLException, IOException
+    {
+        String sql = "SELECT * FROM loan_payment WHERE loan_id = ?";
+        
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, loanId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+        
     }
 
     public void insertPayment() throws SQLException, IOException
