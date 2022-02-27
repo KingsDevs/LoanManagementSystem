@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="407.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.PaymentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="407.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controllers.PaymentController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="428.0" styleClass="tabHbox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,6 +28,15 @@
       </HBox>
       <VBox layoutY="50.0" prefHeight="484.0" prefWidth="407.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="397.0">
+               <children>
+                  <Label fx:id="warningText">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <VBox prefHeight="75.0" prefWidth="245.0" spacing="5.0">
                <children>
                   <Label text="First Name:" />

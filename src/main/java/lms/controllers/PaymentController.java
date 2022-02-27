@@ -5,7 +5,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lms.App;
+import lms.helpers.FormValidation;
 import lms.models.CoopMember;
 import lms.models.Loan;
 
@@ -47,6 +47,9 @@ public class PaymentController implements Initializable
 
     @FXML
     private Label paymentAmountValidation;
+
+    @FXML
+    private Label warningText;
 
     private Loan loan;
     private double minimumPayment;
@@ -131,6 +134,8 @@ public class PaymentController implements Initializable
         {
             minimumPayment = totalBill / Loan.SHORT_TERM_MONTHS_DUE;
         }
+
+        
     }
 
     public void setLoan(Loan loan)
@@ -138,7 +143,8 @@ public class PaymentController implements Initializable
         this.loan = loan;
         updateFields();
         setMinimumPayment();
-            
+        warningText.setText("Your Minimum Payment: " + String.format("%.2f", minimumPayment));
+        
     }
 
     @FXML
@@ -164,7 +170,33 @@ public class PaymentController implements Initializable
     @FXML
     void submit(ActionEvent event) 
     {
+        paymentAmountValidation.setText("");
+        submitBtn.setDisable(true);
 
+        String sPaymentAmount = paymentAmountField.getText();
+
+        if(sPaymentAmount.isEmpty() || sPaymentAmount.isBlank())
+        {
+            FormValidation.emptyField("Payment Amount");
+        }
+        else
+        {
+            double paymentAmount = Double.parseDouble(sPaymentAmount);
+            
+            if(paymentAmount <  minimumPayment)
+            {
+                paymentAmountValidation.setText("The minimum payment is " + String.format("%.2f", minimumPayment));
+            }
+            else if(paymentAmount > loan.getLoanBalance())
+            {
+                paymentAmountValidation.setText("Your payment exceed to your current balance");
+            }
+            else
+            {
+
+            }
+        }
+        submitBtn.setDisable(false);
     }
 
     
