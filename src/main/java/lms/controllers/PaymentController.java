@@ -5,7 +5,10 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -41,7 +45,11 @@ public class PaymentController implements Initializable
     @FXML
     private Button submitBtn;
 
+    @FXML
+    private Label paymentAmountValidation;
+
     private Loan loan;
+    private double minimumPayment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) 
@@ -63,7 +71,18 @@ public class PaymentController implements Initializable
             paymentAmountField.requestFocus();
         });
 
-        
+        paymentAmountField.textProperty().addListener(new ChangeListener<String>(){
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+            {
+                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) 
+                {
+                    paymentAmountField.setText(oldValue);
+                }
+            }
+
+        });
         
     }
 
@@ -89,10 +108,37 @@ public class PaymentController implements Initializable
         }
     }
 
+    private void setMinimumPayment()
+    {
+        double totalInterest = loan.getMonthly();
+
+        if(loan.getLoanType().equals(Loan.LOAN_TYPES[0]))
+        {
+            totalInterest *= Loan.LONG_TERM_MONTHS_DUE;
+        }
+        else
+        {
+            totalInterest *= Loan.SHORT_TERM_MONTHS_DUE;
+        }
+
+        double totalBill = loan.getLoanAmount() + totalInterest;
+
+        if(loan.getLoanType().equals(Loan.LOAN_TYPES[0]))
+        {
+            minimumPayment = totalBill / Loan.SHORT_TERM_MONTHS_DUE;
+        }
+        else
+        {
+            minimumPayment = totalBill / Loan.SHORT_TERM_MONTHS_DUE;
+        }
+    }
+
     public void setLoan(Loan loan)
     {
         this.loan = loan;
         updateFields();
+        setMinimumPayment();
+            
     }
 
     @FXML

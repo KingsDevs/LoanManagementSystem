@@ -13,6 +13,7 @@ lms\helpers\FormValidation.class
 lms\Main.class
 lms\controllers\AddMember$1.class
 lms\helpers\Connect.class
+lms\controllers\PaymentController$1.class
 lms\controllers\MainController.class
 lms\controllers\PaymentController.class
 lms\controllers\AddLoanController$2.class
