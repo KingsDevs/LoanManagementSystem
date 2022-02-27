@@ -5,11 +5,18 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import lms.App;
 import lms.models.CoopMember;
 import lms.models.Loan;
 
@@ -34,21 +41,34 @@ public class PaymentController implements Initializable
     @FXML
     private Button submitBtn;
 
-
+    private Loan loan;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) 
     {
-        paymentAmountField.requestFocus();
-        paymentAmountField.selectAll();
+        // firstNameField.focusedProperty().addListener((o, oldValue, newValue) -> {
+        //     if(newValue)
+        //     {
+        //         Platform.runLater(() -> {
+        //             int caretPosition = firstNameField.getCaretPosition();
+        //             if(firstNameField.getAnchor() != caretPosition)
+        //             {
+        //                 firstNameField.selectRange(caretPosition, caretPosition);
+        //             }
+        //         });
+        //     }
+        // });
+
+        Platform.runLater(() -> {
+            paymentAmountField.requestFocus();
+        });
 
         
         
     }
 
-    public void setLoan(Loan loan)
+    private void updateFields()
     {
-        System.out.println("dsd");
         CoopMember coopMember;
         try 
         {
@@ -67,13 +87,32 @@ public class PaymentController implements Initializable
         {
             e.printStackTrace();
         }
-    
-        
+    }
+
+    public void setLoan(Loan loan)
+    {
+        this.loan = loan;
+        updateFields();
     }
 
     @FXML
-    void cancel(ActionEvent event) {
+    void cancel(ActionEvent event) throws IOException 
+    {
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("main"));
+        Parent root = loader.load();
 
+        MainController mainController = loader.getController();
+            
+        mainController.setAddLoanMain();
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        
+        Scene scene = submitBtn.getScene();
+        Window window = scene.getWindow();
+        Stage stage = (Stage)window;
+
+        Scene mainScene = new Scene(root);
+        stage.setScene(mainScene);
+        stage.show();
     }
 
     @FXML
