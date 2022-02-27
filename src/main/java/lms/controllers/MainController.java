@@ -1,6 +1,8 @@
 package lms.controllers;
 
 import java.io.IOException;
+
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,11 +28,14 @@ public class MainController
     @FXML
     private Button settingsBtn;
 
-    // public MainController() throws IOException
-    // {
-    //     Pane setPane = getPane("home");
-    //     mainPane.setCenter(setPane);
-    // }
+    private final int HOME_REF = 1;
+    private final int ADD_MEMBER_REF = 2;
+    private final int ADD_LOAN_REF = 3;
+    private final int SETTINGS_REF = 4;
+
+    private final int [] BUTTON_REFS = {HOME_REF, ADD_MEMBER_REF, ADD_LOAN_REF, SETTINGS_REF};
+
+    private final PseudoClass activeTab = PseudoClass.getPseudoClass("activeTab");
     
     public void setHome() throws IOException
     {
@@ -42,6 +47,7 @@ public class MainController
     {
         Pane setPane = getPane("addLoanMain");
         mainPane.setCenter(setPane);
+        setTabActive(ADD_LOAN_REF);
     }
 
     @FXML
@@ -49,6 +55,7 @@ public class MainController
     {
         Pane setPane = getPane("addMembersMain");
         mainPane.setCenter(setPane);
+        setTabActive(ADD_MEMBER_REF);
         
     }
 
@@ -57,6 +64,7 @@ public class MainController
     {
         Pane setPane = getPane("home");
         mainPane.setCenter(setPane);
+        setTabActive(HOME_REF);
     }
 
     @FXML
@@ -64,6 +72,7 @@ public class MainController
     {
         Pane setPane = getPane("addMembers");
         mainPane.setCenter(setPane);
+        setTabActive(SETTINGS_REF);
     }
 
     public void setAddMemberMain() throws IOException
@@ -86,5 +95,44 @@ public class MainController
         
 
         return viewPane;
+    }
+
+    private void setTabActive(int num)
+    {
+        if(num == HOME_REF)
+        {
+            homeBtn.pseudoClassStateChanged(activeTab, true);
+        }
+        else
+        {
+            homeBtn.pseudoClassStateChanged(activeTab, false);
+        }
+
+        if(num == ADD_MEMBER_REF)
+        {
+            addMemberBtn.pseudoClassStateChanged(activeTab, true);
+        }
+        else
+        {
+            addMemberBtn.pseudoClassStateChanged(activeTab, false);
+        }
+
+        if(num == ADD_LOAN_REF)
+        {
+            addLoanBtn.pseudoClassStateChanged(activeTab, true);
+        }
+        else
+        {
+            addLoanBtn.pseudoClassStateChanged(activeTab, false);
+        }
+
+        if(num == SETTINGS_REF)
+        {
+            settingsBtn.pseudoClassStateChanged(activeTab, true);
+        }
+        else
+        {
+            settingsBtn.pseudoClassStateChanged(activeTab, false);
+        }
     }
 }

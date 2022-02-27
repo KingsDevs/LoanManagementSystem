@@ -9,6 +9,7 @@ module-info.class
 lms\controllers\LoginController.class
 lms\controllers\AddLoanController.class
 lms\helpers\FormValidation.class
+lms\Main.class
 lms\controllers\AddMember$1.class
 lms\helpers\Connect.class
 lms\controllers\MainController.class

@@ -27,11 +27,16 @@
     -fx-background-color:  rgb(178, 135, 233);
     
 }
-.navbarBtn:pressed{
+/* .navbarBtn:pressed{
     -fx-background-color: rgb(194, 192, 192);
-}
+} */
 
-.navbarBtn:focused{
+/* .navbarBtn:focused{
+    -fx-background-color: rgb(241, 241, 241);
+    -fx-text-fill : "Black";
+} */
+
+.navbarBtn:activeTab{
     -fx-background-color: rgb(241, 241, 241);
     -fx-text-fill : "Black";
 }
