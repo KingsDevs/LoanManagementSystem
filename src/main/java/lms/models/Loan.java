@@ -60,6 +60,16 @@ public class Loan
         this.lender = lender;
     }
 
+    public void setLoanCreated(String loanCreated)
+    {
+        this.loanCreated = loanCreated;
+    }
+
+    public String getLoanCreated()
+    {
+        return loanCreated;
+    }
+
     public int getLoanId()
     {
         return loanId;

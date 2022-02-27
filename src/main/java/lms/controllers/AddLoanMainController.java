@@ -143,6 +143,9 @@ public class AddLoanMainController implements Initializable
         FXMLLoader loader = new FXMLLoader(App.loadFxml("viewLoanDetails"));
         Parent root = loader.load();
 
+        ViewLoanDetailsController viewLoanDetailsController = loader.getController();
+        viewLoanDetailsController.setLoan(selectedLoan);
+
         Stage viewLoanDetailsStage = new Stage();
         viewLoanDetailsStage.setTitle("View Loan Details");
 
@@ -180,6 +183,7 @@ public class AddLoanMainController implements Initializable
                 String lastname = resultSet.getString("lastname");
 
                 loan.setLoanId(resultSet.getInt("loan_id"));
+                loan.setLoanCreated(resultSet.getString("loan_created"));
                 loan.setLender(lastname + ", " + firstname + ", " + middleInitial + ".");
                 data.add(loan);
 
