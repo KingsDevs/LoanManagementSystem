@@ -183,4 +183,37 @@ public class CoopMember
         return resultSet.getInt("id");
         
     }
+
+    public static CoopMember getMemberById(int id) throws SQLException, IOException
+    {
+        String sql ="SELECT * "
+                    + "FROM coop_members "
+                    + "WHERE id = ?"
+                    + " LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        CoopMember coopMember = null;
+
+        while (resultSet.next()) 
+        {
+            coopMember = new CoopMember(
+                resultSet.getString("firstname"),
+                resultSet.getString("middlename"),
+                resultSet.getString("lastname"),
+                resultSet.getString("position"),
+                resultSet.getString("address"),
+                resultSet.getInt("age")
+            );
+            coopMember.setId(
+                resultSet.getInt("id")
+            );
+        }
+
+        return coopMember;
+    
+    }
 }

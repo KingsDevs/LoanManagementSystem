@@ -56,6 +56,8 @@ public class AddLoanMainController implements Initializable
     @FXML
     private Button viewLoanBtn;
 
+    public Loan selectedLoan;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -83,11 +85,13 @@ public class AddLoanMainController implements Initializable
             (obs , oldSelection, newSelection) ->  {
                 if(newSelection != null)
                 {
+                    selectedLoan = newSelection;
                     payLoanBtn.setDisable(false);
                     viewLoanBtn.setDisable(false);
                 }
                 else
                 {
+                    // selectedLoan = null;
                     payLoanBtn.setDisable(true);
                     viewLoanBtn.setDisable(true);
                 }
@@ -117,6 +121,10 @@ public class AddLoanMainController implements Initializable
     {
         FXMLLoader loader = new FXMLLoader(App.loadFxml("loanPayment"));
         Parent root = loader.load();
+
+
+        PaymentController paymentController = loader.getController();
+        paymentController.setLoan(selectedLoan);
 
         Scene scene = addLoanBtn.getScene();
         Window window = scene.getWindow();
