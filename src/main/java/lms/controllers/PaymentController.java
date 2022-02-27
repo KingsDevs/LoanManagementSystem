@@ -23,6 +23,7 @@ import lms.App;
 import lms.helpers.FormValidation;
 import lms.models.CoopMember;
 import lms.models.Loan;
+import lms.models.LoanPayment;
 
 public class PaymentController implements Initializable
 {
@@ -168,7 +169,7 @@ public class PaymentController implements Initializable
     }
 
     @FXML
-    void submit(ActionEvent event) 
+    void submit(ActionEvent event) throws SQLException, IOException 
     {
         paymentAmountValidation.setText("");
         submitBtn.setDisable(true);
@@ -193,7 +194,12 @@ public class PaymentController implements Initializable
             }
             else
             {
+                double currentBalance = loan.getLoanBalance() - paymentAmount;
+                LoanPayment loanPayment = new LoanPayment(loan.getLoanId(), paymentAmount, currentBalance);
+                loanPayment.insertPayment();
+                loan.updateLoanBalance(currentBalance);
 
+                cancel(new ActionEvent());
             }
         }
         submitBtn.setDisable(false);
