@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lms.models.CoopMember;
 import lms.models.Loan;
 import lms.models.LoanPayment;
@@ -180,7 +181,8 @@ public class ViewLoanDetailsController implements Initializable
     @FXML
     void cancel(ActionEvent event) 
     {
-
+        Stage thisStage = (Stage)printBtn.getScene().getWindow();
+        thisStage.close();
     }
 
     @FXML
