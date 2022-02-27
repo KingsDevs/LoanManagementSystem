@@ -113,9 +113,18 @@ public class AddLoanMainController implements Initializable
     }
 
     @FXML
-    void payLoan(ActionEvent event) 
+    void payLoan(ActionEvent event) throws IOException
     {
-        System.out.println("pay loan");
+        FXMLLoader loader = new FXMLLoader(App.loadFxml("loanPayment"));
+        Parent root = loader.load();
+
+        Scene scene = addLoanBtn.getScene();
+        Window window = scene.getWindow();
+        Stage stage = (Stage)window;
+        
+        Scene loanPayment = new Scene(root);
+        stage.setScene(loanPayment);
+        stage.show();
     }
 
     @FXML

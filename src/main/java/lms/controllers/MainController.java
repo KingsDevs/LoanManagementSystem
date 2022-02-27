@@ -28,10 +28,10 @@ public class MainController
     @FXML
     private Button settingsBtn;
 
-    private final int HOME_REF = 1;
-    private final int ADD_MEMBER_REF = 2;
-    private final int ADD_LOAN_REF = 3;
-    private final int SETTINGS_REF = 4;
+    // private final int HOME_REF = 1;
+    // private final int ADD_MEMBER_REF = 2;
+    // private final int ADD_LOAN_REF = 3;
+    // private final int SETTINGS_REF = 4;
 
     private Button oldActive = null;
 

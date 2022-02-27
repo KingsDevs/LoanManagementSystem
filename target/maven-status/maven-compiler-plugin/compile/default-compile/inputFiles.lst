@@ -5,10 +5,12 @@ E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\models\User.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\module-info.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\AddMemberMainController.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\MainController.java
+E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\models\LoanPayment.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\models\Loan.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\LoginController.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\AddMember.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\App.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\helpers\Connect.java
+E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\PaymentController.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\AddLoanController.java
 E:\myCraft\Java Maven\loanmanagementsystem\src\main\java\lms\controllers\AddLoanMainController.java

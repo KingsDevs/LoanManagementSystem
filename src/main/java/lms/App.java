@@ -28,7 +28,7 @@ public class App extends Application {
         primaryStage.setTitle("Loan Management System");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
 
         primaryStage.show();
     }
