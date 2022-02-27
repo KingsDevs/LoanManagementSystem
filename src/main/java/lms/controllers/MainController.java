@@ -33,7 +33,9 @@ public class MainController
     private final int ADD_LOAN_REF = 3;
     private final int SETTINGS_REF = 4;
 
-    private final int [] BUTTON_REFS = {HOME_REF, ADD_MEMBER_REF, ADD_LOAN_REF, SETTINGS_REF};
+    private Button oldActive = null;
+
+    //private final int [] BUTTON_REFS = {HOME_REF, ADD_MEMBER_REF, ADD_LOAN_REF, SETTINGS_REF};
 
     private final PseudoClass activeTab = PseudoClass.getPseudoClass("activeTab");
     
@@ -47,7 +49,13 @@ public class MainController
     {
         Pane setPane = getPane("addLoanMain");
         mainPane.setCenter(setPane);
-        setTabActive(ADD_LOAN_REF);
+        
+        addLoanBtn.pseudoClassStateChanged(activeTab, true);
+        if(oldActive != null && oldActive != addLoanBtn)
+        {
+            oldActive.pseudoClassStateChanged(activeTab, false);
+        }
+        oldActive = addLoanBtn;
     }
 
     @FXML
@@ -55,7 +63,13 @@ public class MainController
     {
         Pane setPane = getPane("addMembersMain");
         mainPane.setCenter(setPane);
-        setTabActive(ADD_MEMBER_REF);
+    
+        addMemberBtn.pseudoClassStateChanged(activeTab, true);
+        if(oldActive != null && oldActive != addMemberBtn)
+        {
+            oldActive.pseudoClassStateChanged(activeTab, false);
+        }
+        oldActive = addMemberBtn;
         
     }
 
@@ -64,7 +78,13 @@ public class MainController
     {
         Pane setPane = getPane("home");
         mainPane.setCenter(setPane);
-        setTabActive(HOME_REF);
+
+        homeBtn.pseudoClassStateChanged(activeTab, true);
+        if(oldActive != null && oldActive != homeBtn)
+        {
+            oldActive.pseudoClassStateChanged(activeTab, false);
+        }
+        oldActive = homeBtn;
     }
 
     @FXML
@@ -72,7 +92,13 @@ public class MainController
     {
         Pane setPane = getPane("addMembers");
         mainPane.setCenter(setPane);
-        setTabActive(SETTINGS_REF);
+
+        settingsBtn.pseudoClassStateChanged(activeTab, true);
+        if(oldActive != null && oldActive != settingsBtn)
+        {
+            oldActive.pseudoClassStateChanged(activeTab, false);
+        }
+        oldActive = settingsBtn;
     }
 
     public void setAddMemberMain() throws IOException
@@ -99,40 +125,40 @@ public class MainController
 
     private void setTabActive(int num)
     {
-        if(num == HOME_REF)
-        {
-            homeBtn.pseudoClassStateChanged(activeTab, true);
-        }
-        else
-        {
-            homeBtn.pseudoClassStateChanged(activeTab, false);
-        }
+        // if(num == HOME_REF)
+        // {
+        //     homeBtn.pseudoClassStateChanged(activeTab, true);
+        // }
+        // else
+        // {
+        //     homeBtn.pseudoClassStateChanged(activeTab, false);
+        // }
 
-        if(num == ADD_MEMBER_REF)
-        {
-            addMemberBtn.pseudoClassStateChanged(activeTab, true);
-        }
-        else
-        {
-            addMemberBtn.pseudoClassStateChanged(activeTab, false);
-        }
+        // if(num == ADD_MEMBER_REF)
+        // {
+        //     addMemberBtn.pseudoClassStateChanged(activeTab, true);
+        // }
+        // else
+        // {
+        //     addMemberBtn.pseudoClassStateChanged(activeTab, false);
+        // }
 
-        if(num == ADD_LOAN_REF)
-        {
-            addLoanBtn.pseudoClassStateChanged(activeTab, true);
-        }
-        else
-        {
-            addLoanBtn.pseudoClassStateChanged(activeTab, false);
-        }
+        // if(num == ADD_LOAN_REF)
+        // {
+        //     addLoanBtn.pseudoClassStateChanged(activeTab, true);
+        // }
+        // else
+        // {
+        //     addLoanBtn.pseudoClassStateChanged(activeTab, false);
+        // }
 
-        if(num == SETTINGS_REF)
-        {
-            settingsBtn.pseudoClassStateChanged(activeTab, true);
-        }
-        else
-        {
-            settingsBtn.pseudoClassStateChanged(activeTab, false);
-        }
+        // if(num == SETTINGS_REF)
+        // {
+        //     settingsBtn.pseudoClassStateChanged(activeTab, true);
+        // }
+        // else
+        // {
+        //     settingsBtn.pseudoClassStateChanged(activeTab, false);
+        // }
     }
 }
