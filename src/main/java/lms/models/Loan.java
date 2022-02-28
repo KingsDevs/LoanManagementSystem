@@ -164,13 +164,19 @@ public class Loan
 
     public void updateLoanBalance(double currentBalance) throws SQLException, IOException
     {
-        String sql = "UPDATE loans SET loan_balance = ? "
+        String sql = "UPDATE loans SET loan_balance = ?, loan_status = ? "
                    + "WHERE loan_id = ?";
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
         
+        if(currentBalance <= 0)
+        {
+            loanStatus = LOAN_STATUSES[1];
+        }
+
         preparedStatement.setDouble(1, currentBalance);
-        preparedStatement.setInt(2, loanId);
+        preparedStatement.setString(2, loanStatus);
+        preparedStatement.setInt(3, loanId);
 
         preparedStatement.executeUpdate();
     }

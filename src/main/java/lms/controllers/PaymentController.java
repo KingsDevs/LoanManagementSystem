@@ -136,6 +136,11 @@ public class PaymentController implements Initializable
             minimumPayment = totalBill / Loan.SHORT_TERM_MONTHS_DUE;
         }
 
+        if(minimumPayment >=  loan.getLoanBalance())
+        {
+            minimumPayment = loan.getLoanBalance();
+        }
+
         
     }
 
