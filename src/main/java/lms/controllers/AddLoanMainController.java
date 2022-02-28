@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,6 +104,37 @@ public class AddLoanMainController implements Initializable
                 }
             }
         );
+
+
+        searchField.textProperty().addListener(new ChangeListener<String>(){
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+            {
+                if (newValue.isBlank() || newValue.isEmpty()) 
+                {
+                    try {
+                        updateTable(data);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    try {
+                        updateTableBySearch(data);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                
+            }
+
+        });
         
     }
 
@@ -170,8 +203,13 @@ public class AddLoanMainController implements Initializable
     public void updateTable(ObservableList<Loan> data) throws SQLException, IOException
     {
         ResultSet resultSet = Loan.getLoans();
+        insertDataInTable(data, resultSet);
+    }
 
-            while (resultSet.next()) 
+    private void insertDataInTable(ObservableList<Loan> data, ResultSet resultSet) throws SQLException
+    {
+        data.clear();
+        while (resultSet.next()) 
             {
                 Loan loan = new Loan(
                         resultSet.getInt("coop_member_id"),
@@ -194,6 +232,17 @@ public class AddLoanMainController implements Initializable
             }
 
         loanListTableView.setItems(data);
+    }
+
+    private void updateTableBySearch(ObservableList<Loan> data) throws SQLException, IOException
+    {
+        String searchedText = searchField.getText();
+        
+        if(!(searchedText.isEmpty() || searchedText.isBlank()))
+        {
+            ResultSet resultSet = Loan.searchLoans(searchedText);
+            insertDataInTable(data, resultSet);
+        }
     }
 
     @FXML

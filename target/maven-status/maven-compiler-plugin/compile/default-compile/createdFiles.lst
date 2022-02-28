@@ -6,6 +6,7 @@ lms\models\CoopMember.class
 lms\controllers\ViewLoanDetailsController.class
 lms\models\Loan.class
 lms\controllers\AddLoanController$1.class
+lms\controllers\AddLoanMainController$1.class
 module-info.class
 lms\models\LoanPayment.class
 lms\controllers\LoginController.class
