@@ -175,4 +175,26 @@ public class Loan
         preparedStatement.executeUpdate();
     }
 
+    public static ResultSet searchLoans(String searchText) throws SQLException, IOException
+    {
+        String sql = "SELECT * FROM loans JOIN coop_members ON coop_member_id = coop_members.id "
+                    +"WHERE coop_members.firstname = ? "
+                    +"OR coop_members.middlename = ? "
+                    +"OR coop_members.lastname = ? "
+                    +"OR loans.loan_type = ? "
+                    +"OR loans.loan_status = ? ";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+
+        preparedStatement.setString(1,"%" + searchText + "%");
+        preparedStatement.setString(2,"%" + searchText + "%");
+        preparedStatement.setString(3,"%" + searchText + "%");
+        preparedStatement.setString(4,"%" + searchText + "%");
+        preparedStatement.setString(5,"%" + searchText + "%");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
+
 }
