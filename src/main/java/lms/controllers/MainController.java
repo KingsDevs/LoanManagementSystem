@@ -130,42 +130,13 @@ public class MainController
         return viewPane;
     }
 
-    private void setTabActive(int num)
+    private void setTabActive(Button activeTabBtn)
     {
-        // if(num == HOME_REF)
-        // {
-        //     homeBtn.pseudoClassStateChanged(activeTab, true);
-        // }
-        // else
-        // {
-        //     homeBtn.pseudoClassStateChanged(activeTab, false);
-        // }
-
-        // if(num == ADD_MEMBER_REF)
-        // {
-        //     addMemberBtn.pseudoClassStateChanged(activeTab, true);
-        // }
-        // else
-        // {
-        //     addMemberBtn.pseudoClassStateChanged(activeTab, false);
-        // }
-
-        // if(num == ADD_LOAN_REF)
-        // {
-        //     addLoanBtn.pseudoClassStateChanged(activeTab, true);
-        // }
-        // else
-        // {
-        //     addLoanBtn.pseudoClassStateChanged(activeTab, false);
-        // }
-
-        // if(num == SETTINGS_REF)
-        // {
-        //     settingsBtn.pseudoClassStateChanged(activeTab, true);
-        // }
-        // else
-        // {
-        //     settingsBtn.pseudoClassStateChanged(activeTab, false);
-        // }
+        activeTabBtn.pseudoClassStateChanged(activeTab, true);
+        if(oldActive != null && oldActive != settingsBtn)
+        {
+            oldActive.pseudoClassStateChanged(activeTab, false);
+        }
+        oldActive = activeTabBtn;
     }
 }
