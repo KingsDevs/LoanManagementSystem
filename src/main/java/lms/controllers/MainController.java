@@ -57,12 +57,7 @@ public class MainController
         Pane setPane = getPane("addLoanMain");
         mainPane.setCenter(setPane);
         
-        addLoanBtn.pseudoClassStateChanged(activeTab, true);
-        if(oldActive != null && oldActive != addLoanBtn)
-        {
-            oldActive.pseudoClassStateChanged(activeTab, false);
-        }
-        oldActive = addLoanBtn;
+        setTabActive(addLoanBtn);
     }
 
     @FXML
@@ -71,12 +66,7 @@ public class MainController
         Pane setPane = getPane("addMembersMain");
         mainPane.setCenter(setPane);
     
-        addMemberBtn.pseudoClassStateChanged(activeTab, true);
-        if(oldActive != null && oldActive != addMemberBtn)
-        {
-            oldActive.pseudoClassStateChanged(activeTab, false);
-        }
-        oldActive = addMemberBtn;
+        setTabActive(addMemberBtn);
         
     }
 
@@ -86,12 +76,7 @@ public class MainController
         Pane setPane = getPane("home");
         mainPane.setCenter(setPane);
 
-        homeBtn.pseudoClassStateChanged(activeTab, true);
-        if(oldActive != null && oldActive != homeBtn)
-        {
-            oldActive.pseudoClassStateChanged(activeTab, false);
-        }
-        oldActive = homeBtn;
+        setTabActive(homeBtn);
     }
 
     @FXML
@@ -100,12 +85,7 @@ public class MainController
         Pane setPane = getPane("addMembers");
         mainPane.setCenter(setPane);
 
-        settingsBtn.pseudoClassStateChanged(activeTab, true);
-        if(oldActive != null && oldActive != settingsBtn)
-        {
-            oldActive.pseudoClassStateChanged(activeTab, false);
-        }
-        oldActive = settingsBtn;
+        setTabActive(settingsBtn);
     }
 
     public void setAddMemberMain() throws IOException
@@ -133,7 +113,7 @@ public class MainController
     private void setTabActive(Button activeTabBtn)
     {
         activeTabBtn.pseudoClassStateChanged(activeTab, true);
-        if(oldActive != null && oldActive != settingsBtn)
+        if(oldActive != null && oldActive != activeTabBtn)
         {
             oldActive.pseudoClassStateChanged(activeTab, false);
         }
