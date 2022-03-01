@@ -31,6 +31,7 @@ public class HomeController implements Initializable
             try {
                 loadActiveLoans();
                 loadPaidLoans();
+                loadDueLoans();
             } catch (SQLException e) {
                 
                 e.printStackTrace();
@@ -69,6 +70,22 @@ public class HomeController implements Initializable
             String lastname = resultSet.getString("lastname");
             String loanType = resultSet.getString("loan_type");
             paidLoansList.getItems().add(loanType + " : " + lastname + ", " + firstname + ", " + middleInitial);
+        }
+    }
+
+    private void loadDueLoans() throws SQLException, IOException
+    {
+        ResultSet resultSet = Loan.getLoanByStatus(Loan.LOAN_STATUSES[2]);
+
+        while (resultSet.next()) 
+        {
+            String firstname = resultSet.getString("firstname");
+            char middleInitial = resultSet.getString("middlename").charAt(0);
+            String lastname = resultSet.getString("lastname");
+            String loanType = resultSet.getString("loan_type");
+            double loanBalance = resultSet.getDouble("loan_balance");
+
+            dueLoansList.getItems().add(loanType + " : " + lastname + ", " + firstname + ", " + middleInitial + ". | Bal: " + loanBalance);
         }
     }
 
