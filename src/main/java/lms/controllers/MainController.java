@@ -1,6 +1,7 @@
 package lms.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import lms.App;
+import lms.models.Loan;
 
 public class MainController 
 {
@@ -41,7 +43,12 @@ public class MainController
     
     public void setHome() throws IOException
     {
-        homeAction(new ActionEvent());
+        try {
+            Loan.updateLoanStatus(Loan.LOAN_STATUSES[2]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        homeAction(new ActionEvent());  
     }
 
     @FXML

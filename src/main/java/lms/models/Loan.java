@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import lms.helpers.Connect;
 
@@ -216,6 +217,50 @@ public class Loan
         ResultSet resultSet = preparedStatement.executeQuery();
 
         return resultSet;
+    }
+
+    public static void updateLoanStatus(String loanStatus) throws SQLException, IOException
+    {
+        String sql = "SELECT loan_id, loan_due_date FROM loans";
+
+        ResultSet resultSet = Connect.getStatement().executeQuery(sql);
+        ArrayList<Integer> loadIds = new ArrayList<Integer>();
+        String todayDate = LocalDate.now().toString();
+
+        while(resultSet.next())
+        {
+            String loanDueDate = resultSet.getString("loan_due_date");
+            if (loanDueDate.equals(todayDate)) 
+            {
+                loadIds.add(resultSet.getInt("loan_id"));    
+            }
+        }
+
+        sql = "UPDATE loans SET loan_status = ? WHERE loan_id IN (";
+        String inId = "";
+
+        for(int i = 1; i <= loadIds.size(); i++)
+        {
+            inId += "?";
+            if(i < loadIds.size())
+            {
+                inId += ",";
+            }
+        }
+
+        inId += ")";
+        sql += inId;
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setString(1, loanStatus);
+
+        for(int i = 1; i <= loadIds.size(); i++)
+        {
+            preparedStatement.setInt(i+1, loadIds.get(i-1));
+        }
+
+        preparedStatement.executeUpdate();
+
     }
 
 }
