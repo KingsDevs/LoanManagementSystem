@@ -204,4 +204,18 @@ public class Loan
         return resultSet;
     }
 
+    public static ResultSet getLoanByStatus(String loanStatus) throws SQLException, IOException
+    {
+        String sql = "SELECT *" 
+                    +"FROM loans JOIN coop_members ON loans.coop_member_id = coop_members.id "
+                    +"WHERE loans.loan_status = ?";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setString(1, loanStatus);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
+
 }

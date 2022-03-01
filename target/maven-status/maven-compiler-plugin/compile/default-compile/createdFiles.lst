@@ -8,6 +8,7 @@ lms\models\Loan.class
 lms\controllers\AddLoanController$1.class
 lms\controllers\AddLoanMainController$1.class
 module-info.class
+lms\controllers\HomeController.class
 lms\models\LoanPayment.class
 lms\controllers\LoginController.class
 lms\controllers\AddLoanController.class
