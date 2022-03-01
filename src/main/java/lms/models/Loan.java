@@ -27,7 +27,7 @@ public class Loan
     public final static String[] LOAN_TYPES = {"SHORT TERM", "LONG TERM"};
 
     public final static double INTEREST = 2.5 / 100;
-    public final static double SERVICE_FEE_RATE = 2 / 100;
+    public final static double SERVICE_FEE_RATE = 2.0 / 100;
 
     public final static double MINIMUM = 10000;
     public final static double MAXIMUM = 100000;
@@ -142,6 +142,7 @@ public class Loan
             preparedStatement.setDouble(3, loanAmount);
             preparedStatement.setDouble(4, loanAmount);
             preparedStatement.setDouble(5, loanAmount * SERVICE_FEE_RATE);
+           // System.out.println(loanAmount + " * " + SERVICE_FEE_RATE + " = " + loanAmount * SERVICE_FEE_RATE);
             preparedStatement.setString(6, LOAN_STATUSES[0]);
             preparedStatement.setString(7, todayDate.toString());
 
