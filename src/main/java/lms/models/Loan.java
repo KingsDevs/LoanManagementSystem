@@ -219,19 +219,23 @@ public class Loan
         return resultSet;
     }
 
-    public static void updateLoanStatus(String loanStatus) throws SQLException, IOException
+    public static void updateLoanStatusToDue() throws SQLException, IOException
     {
-        String sql = "SELECT loan_id, loan_due_date FROM loans";
+        String sql = "SELECT loan_id, loan_status, loan_due_date FROM loans";
 
         ResultSet resultSet = Connect.getStatement().executeQuery(sql);
         ArrayList<Integer> loadIds = new ArrayList<Integer>();
-        String todayDate = LocalDate.now().toString();
+        LocalDate todayDate = LocalDate.now();
 
         while(resultSet.next())
         {
-            String loanDueDate = resultSet.getString("loan_due_date");
-            if (loanDueDate.equals(todayDate)) 
+            LocalDate loanDueDate = LocalDate.parse(resultSet.getString("loan_due_date"));
+           // String loanDueDate = resultSet.getString("loan_due_date");
+            String status = resultSet.getString("loan_status");
+
+            if (loanDueDate.compareTo(todayDate) <= 0 && status.equals(LOAN_STATUSES[0])) 
             {
+                System.out.println(resultSet.getInt("loan_id"));
                 loadIds.add(resultSet.getInt("loan_id"));    
             }
         }
@@ -252,7 +256,7 @@ public class Loan
         sql += inId;
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
-        preparedStatement.setString(1, loanStatus);
+        preparedStatement.setString(1, LOAN_STATUSES[2]);
 
         for(int i = 1; i <= loadIds.size(); i++)
         {

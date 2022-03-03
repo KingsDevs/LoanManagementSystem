@@ -44,7 +44,7 @@ public class MainController
     public void setHome() throws IOException
     {
         try {
-            Loan.updateLoanStatus(Loan.LOAN_STATUSES[2]);
+            Loan.updateLoanStatusToDue();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -115,12 +115,14 @@ public class MainController
 
     private void setTabActive(Button activeTabBtn)
     {
-        if(activeTabBtn != oldActive)
-            activeTabBtn.pseudoClassStateChanged(activeTab, true);
+        
+        activeTabBtn.pseudoClassStateChanged(activeTab, true);
         if(oldActive != null && oldActive != activeTabBtn)
         {
             oldActive.pseudoClassStateChanged(activeTab, false);
         }
-        oldActive = activeTabBtn;
+
+        if(activeTabBtn != oldActive)
+            oldActive = activeTabBtn;
     }
 }
