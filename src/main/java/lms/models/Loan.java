@@ -271,7 +271,7 @@ public class Loan
         {
             String when = "";
             String in = "";
-            for(int i = 0; i < loanIds.size(); i++)
+            for(int i = 1; i <= loanIds.size(); i++)
             {
                 when += "WHEN loan_id = ? THEN ? ";
                 
@@ -284,8 +284,8 @@ public class Loan
 
             // when += "END";
 
-            sql = "UPDATE loans SET loan_balance=CASE " + when + "WHERE loan_id IN(" + in + ")";
-
+            sql = "UPDATE loans SET loan_balance=(CASE " + when + "END) " + "WHERE loan_id IN(" + in + ")";
+            System.out.println(sql);
             int last = 0;
 
             PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
@@ -298,7 +298,7 @@ public class Loan
             }
             
             int index = 0;
-            for(int i = last; i <= loanIds.size() + last; i++)
+            for(int i = last; i < loanIds.size() + last; i++)
             {
                 preparedStatement.setInt(last, loanIds.get(index));
                 index ++;
