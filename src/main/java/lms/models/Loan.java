@@ -219,6 +219,97 @@ public class Loan
         return resultSet;
     }
 
+    public static void updateLoanBalance() throws SQLException, IOException
+    {
+        String sql = "SELECT loan_id, loan_status, loan_created, loan_type, loan_balance, loan_amount FROM loans";
+
+        ResultSet resultSet = Connect.getStatement().executeQuery(sql);
+        LocalDate todayDate = LocalDate.now();
+
+        ArrayList<Integer> loanIds = new ArrayList<Integer>();
+        ArrayList<Double> loanBalances = new ArrayList<Double>();
+
+        while (resultSet.next()) 
+        {
+            String loanStatus = resultSet.getString("loan_status");
+            if(!loanStatus.equals(LOAN_STATUSES[1]))
+            {
+                LocalDate loanCreated = LocalDate.parse(resultSet.getString("loan_created"));
+
+                String loanType = resultSet.getString("loan_type");
+                int limit;
+                if(loanType.equals(LOAN_TYPES[0]))
+                {
+                    limit = SHORT_TERM_MONTHS_DUE;
+                }
+                else
+                {
+                    limit = LONG_TERM_MONTHS_DUE;
+                }
+
+                for(int i = limit; i >= 1; i--)
+                {
+                    LocalDate dateChecker = loanCreated.plusMonths(i);
+
+                    if(todayDate.isAfter(dateChecker) || todayDate.equals(dateChecker))
+                    {
+                        double loanBalance = resultSet.getDouble("loan_balance");
+                        double loanAmount = resultSet.getDouble("loan_amount");
+
+                        loanBalance += loanAmount * INTEREST; 
+                        System.out.println(resultSet.getInt("loan_id"));
+                        loanBalances.add(loanBalance);
+                        loanIds.add(resultSet.getInt("loan_id"));
+                        break;
+                    }
+
+                }
+            }
+        }
+        
+        if(loanIds.size() > 0)
+        {
+            String when = "";
+            String in = "";
+            for(int i = 0; i < loanIds.size(); i++)
+            {
+                when += "WHEN loan_id = ? THEN ? ";
+                
+                in += "?";
+                if(i < loanIds.size())
+                {
+                    in += ",";
+                }
+            }
+
+            // when += "END";
+
+            sql = "UPDATE loans SET loan_balance=CASE " + when + "WHERE loan_id IN(" + in + ")";
+
+            int last = 0;
+
+            PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+            for(int i = 1; i <= loanIds.size(); i++)
+            {
+                preparedStatement.setInt(i, loanIds.get(i-1));
+                preparedStatement.setDouble(i + 1, loanBalances.get(i-1));
+
+                last = 2 * i + 1;
+            }
+            
+            int index = 0;
+            for(int i = last; i <= loanIds.size() + last; i++)
+            {
+                preparedStatement.setInt(last, loanIds.get(index));
+                index ++;
+            }
+
+            preparedStatement.executeUpdate();
+            
+        }
+
+    }
+
     public static void updateLoanStatusToDue() throws SQLException, IOException
     {
         String sql = "SELECT loan_id, loan_status, loan_due_date FROM loans";
