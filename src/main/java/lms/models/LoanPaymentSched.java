@@ -74,15 +74,15 @@ public class LoanPaymentSched
         preparedStatement.executeUpdate();
     }
 
-    public static void updateLoanPayment(int loanPaymentSchedId, String loanPaymentSched, String loanPaymentStatus) throws SQLException, IOException
+    public static void updateLoanPayment(int loanId, String loanPaymentStatus) throws SQLException, IOException
     {
-        String sql = "UPDATE loans SET(schedule = ?, status = ?) WHERE sched_id = ?";
+        String sql = "UPDATE loan_payment_sched SET status = ? WHERE loan_id = ?";
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
 
-        preparedStatement.setString(1, loanPaymentSched);
-        preparedStatement.setString(2, loanPaymentStatus);
-        preparedStatement.setInt(3, loanPaymentSchedId);
+        
+        preparedStatement.setString(1, loanPaymentStatus);
+        preparedStatement.setInt(2, loanId);
 
         preparedStatement.executeUpdate();
     }
@@ -105,7 +105,8 @@ public class LoanPaymentSched
 
         for(int i = 1; i <= limit; i++)
         {
-            generatedSched += today.plusMonths(1).toString();
+            today = today.plusMonths(1);
+            generatedSched += today.toString();
             if(i < limit)
             {
                 generatedSched += ",";
