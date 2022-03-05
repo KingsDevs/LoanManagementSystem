@@ -53,6 +53,14 @@
                         <Insets left="40.0" top="20.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="reportsBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#report" prefHeight="53.0" prefWidth="195.0" styleClass="navbarBtn" stylesheets="@../css/main.css" text="Reports" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="40.0" top="20.0" />
+                     </padding>
+                  </Button>
                   <Button fx:id="settingsBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#settingsAction" prefHeight="53.0" prefWidth="195.0" styleClass="navbarBtn" stylesheets="@../css/main.css" text="Settings" textFill="WHITE">
                      <font>
                         <Font size="14.0" />

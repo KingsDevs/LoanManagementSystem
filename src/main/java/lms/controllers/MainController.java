@@ -30,6 +30,9 @@ public class MainController
     @FXML
     private Button settingsBtn;
 
+    @FXML
+    private Button reportsBtn;
+
     // private final int HOME_REF = 1;
     // private final int ADD_MEMBER_REF = 2;
     // private final int ADD_LOAN_REF = 3;
@@ -84,11 +87,21 @@ public class MainController
     @FXML
     void settingsAction(ActionEvent event) throws IOException 
     {
-        Pane setPane = getPane("addMembers");
+        Pane setPane = getPane("settings");
         mainPane.setCenter(setPane);
 
         setTabActive(settingsBtn);
     }
+
+    @FXML
+    void report(ActionEvent event) throws IOException 
+    {
+        Pane setPane = getPane("reports");
+        mainPane.setCenter(setPane);
+
+        setTabActive(reportsBtn);
+    }
+
 
     public void setAddMemberMain() throws IOException
     {
