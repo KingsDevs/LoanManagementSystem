@@ -260,7 +260,7 @@ public class Loan
 
     public static void updateLoanBalance() throws SQLException, IOException
     {
-        String sql = "SELECT loan_id, loan_status, loan_created, loan_type, loan_balance, loan_amount FROM loans";
+        String sql = "SELECT loan_id, loan_status, loan_type, loan_balance, loan_amount FROM loans";
 
         ResultSet resultSet = Connect.getStatement().executeQuery(sql);
         LocalDate todayDate = LocalDate.now();

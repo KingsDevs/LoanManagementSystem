@@ -61,15 +61,15 @@ public class LoanPaymentSched
 
     public void insertLoanPaymentSchedule(int loanId) throws SQLException, IOException
     {
-        String sql = "INSERT INTO loan_payment_sched(sched_id, loan_id, schedule, status) "
-                   + "VALUES(?,?,?,?)";
+        String sql = "INSERT INTO loan_payment_sched( loan_id, schedule, status) "
+                   + "VALUES(?,?,?)";
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
         
-        preparedStatement.setInt(1, loanPaymentSchedId);
-        preparedStatement.setInt(2, loanId);
-        preparedStatement.setString(3, loanPaymentSchedule);
-        preparedStatement.setString(4, loanPaymentStatus);
+        
+        preparedStatement.setInt(1, loanId);
+        preparedStatement.setString(2, loanPaymentSchedule);
+        preparedStatement.setString(3, loanPaymentStatus);
 
         preparedStatement.executeUpdate();
     }
