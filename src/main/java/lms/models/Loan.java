@@ -268,41 +268,43 @@ public class Loan
         ArrayList<Integer> loanIds = new ArrayList<Integer>();
         ArrayList<Double> loanBalances = new ArrayList<Double>();
 
-        while (resultSet.next()) 
+       
+        
+        while(resultSet.next())
         {
+            int loanId = resultSet.getInt("loan_id");
+            LoanPaymentSched loanPaymentSched = LoanPaymentSched.getLoanPaymentSched(loanId);
+
             String loanStatus = resultSet.getString("loan_status");
+
             if(!loanStatus.equals(LOAN_STATUSES[1]))
             {
-                LocalDate loanCreated = LocalDate.parse(resultSet.getString("loan_created"));
+                String[] schedules = loanPaymentSched.getLoanPaymentSchedule().split(",");
+                String statuses = loanPaymentSched.getLoanPaymentStatus();
+                String[] arrStatues = statuses.split(",");
 
-                String loanType = resultSet.getString("loan_type");
-                int limit;
-                if(loanType.equals(LOAN_TYPES[0]))
-                {
-                    limit = SHORT_TERM_MONTHS_DUE;
-                }
-                else
-                {
-                    limit = LONG_TERM_MONTHS_DUE;
-                }
+                int schedLength = schedules.length;
 
-                for(int i = limit; i >= 1; i--)
+                for(int i = schedLength-1; i >= 0; i--)
                 {
-                    LocalDate dateChecker = loanCreated.plusMonths(i);
+                    LocalDate paymentSched = LocalDate.parse(schedules[i]);
 
-                    if(todayDate.isAfter(dateChecker) || todayDate.equals(dateChecker))
+                    if(!arrStatues[i].equals(LOAN_STATUSES[1]) && (todayDate.isAfter(paymentSched) || todayDate.equals(paymentSched)))
                     {
                         double loanBalance = resultSet.getDouble("loan_balance");
-                        double loanAmount = resultSet.getDouble("loan_amount");
+                        loanBalance += resultSet.getDouble("loan_amount") * INTEREST;
 
-                        loanBalance += loanAmount * INTEREST; 
-                        System.out.println(resultSet.getInt("loan_id"));
                         loanBalances.add(loanBalance);
-                        loanIds.add(resultSet.getInt("loan_id"));
-                        break;
-                    }
+                        loanIds.add(loanId);
 
+                        String changedStatus = LoanPaymentSched.changeStatusToDue(statuses);
+                        LoanPaymentSched.updateLoanPayment(loanId, changedStatus);
+
+                        break;
+                        
+                    }
                 }
+
             }
         }
         

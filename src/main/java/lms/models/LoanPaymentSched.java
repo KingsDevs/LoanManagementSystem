@@ -137,4 +137,32 @@ public class LoanPaymentSched
         return generateSchedStatus;
     }
 
+    public static String changeStatusToDue(String statuses)
+    {
+        String [] arrStatuses = statuses.split(",");
+        String status = "";
+        int length = arrStatuses.length;
+
+        Boolean hasFound = false;
+        for(int i = 0; i < length; i++)
+        {
+            if(!hasFound && arrStatuses[i].equals(Loan.LOAN_STATUSES[0]))
+            {
+                status += Loan.LOAN_STATUSES[2];
+                hasFound = true;
+            }
+            else
+            {
+                status+= arrStatuses[i];
+            }
+
+            if(i != (length - 1))
+            {
+                status += ",";
+            }
+        }
+
+        return status;
+    }
+
 }
