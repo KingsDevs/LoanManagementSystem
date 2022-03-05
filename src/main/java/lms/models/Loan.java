@@ -130,6 +130,45 @@ public class Loan
         
     }
 
+    public static Boolean isCoopMemberAlreadyLoaned(int coopMemberId) throws SQLException, IOException
+    {
+        String sql = "SELECT * FROM loans WHERE coop_member_id = ? LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, coopMemberId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+
+        try 
+        {
+            int loanId = resultSet.getInt("loan_id");
+        } catch (SQLException e) 
+        {
+            if (e.getMessage().equals("ResultSet closed")) 
+            {
+                return false;    
+            }
+           
+        }
+        
+        
+
+        return true;
+    }
+
+    public static int getLoanIdFromDb(int coopMemberId) throws SQLException, IOException
+    {
+        String sql = "SELECT loan_id FROM loans WHERE coop_member_id = ? LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, coopMemberId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet.getInt("loan_id");
+    }
+
     public static void insertLoans(int coopMemberId, String loanType, double loanAmount) throws IOException
     {
         String sql = "INSERT INTO loans(coop_member_id, loan_type, loan_amount, loan_balance, service_fee, loan_status, loan_created, loan_due_date) "

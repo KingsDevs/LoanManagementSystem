@@ -45,7 +45,7 @@ public class MainController
     {
         try {
             Loan.updateLoanStatusToDue();
-            Loan.updateLoanBalance();
+            //Loan.updateLoanBalance();
         } catch (SQLException e) {
             e.printStackTrace();
         }

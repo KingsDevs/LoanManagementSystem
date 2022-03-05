@@ -33,6 +33,7 @@ import lms.App;
 import lms.helpers.FormValidation;
 import lms.models.CoopMember;
 import lms.models.Loan;
+import lms.models.LoanPaymentSched;
 
 
 public class AddLoanController implements Initializable
@@ -245,11 +246,32 @@ public class AddLoanController implements Initializable
             e.printStackTrace();
         }
 
+        
+
         if(isCleared)
         {
             coopMemberId = CoopMember.getMemberIdFromDb(firstname, middlename, lastName);
-            Loan.insertLoans(coopMemberId, loanType, Double.parseDouble(sLoanAmount));
-            cancel(new ActionEvent());
+            Boolean hasLoaned = Loan.isCoopMemberAlreadyLoaned(coopMemberId);
+            if(hasLoaned)
+            {
+                mainFormValidationLabel.setText("Coop Member has Already Loaned!");
+                addLoanBtn.setDisable(false);
+            }
+            else
+            {
+                Loan.insertLoans(coopMemberId, loanType, Double.parseDouble(sLoanAmount));
+                int loanId = Loan.getLoanIdFromDb(coopMemberId);
+                String generatedSched = LoanPaymentSched.generateScheds(loanType);
+                String generatedLoanSched = LoanPaymentSched.generateSchedStatus(generatedSched);
+
+                LoanPaymentSched loanPaymentSched = new LoanPaymentSched(
+                    generatedSched, generatedLoanSched
+                );
+
+                loanPaymentSched.insertLoanPaymentSchedule(loanId);
+                cancel(new ActionEvent());
+            }
+            
         }
         else
         {
