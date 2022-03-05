@@ -71,12 +71,12 @@ public class LoanPayment
         
     }
 
-    public void insertPayment() throws SQLException, IOException
+    public void insertPayment(LocalDate todayDate) throws SQLException, IOException
     {
         String sql = "INSERT INTO loan_payment(loan_id, payment_date, payment_amount, loan_balance) "
                     +"VALUES(?,?,?,?)";
     
-        LocalDate todayDate = LocalDate.now();
+        
 
         PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
         

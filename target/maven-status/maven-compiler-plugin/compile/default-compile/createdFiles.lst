@@ -14,6 +14,7 @@ lms\controllers\LoginController.class
 lms\controllers\AddLoanController.class
 lms\helpers\FormValidation.class
 lms\Main.class
+lms\models\LoanPaymentSched.class
 lms\controllers\AddMember$1.class
 lms\helpers\Connect.class
 lms\controllers\PaymentController$1.class

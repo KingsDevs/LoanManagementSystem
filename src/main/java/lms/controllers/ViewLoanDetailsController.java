@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import lms.models.CoopMember;
 import lms.models.Loan;
 import lms.models.LoanPayment;
+import lms.models.LoanPaymentSched;
 
 public class ViewLoanDetailsController implements Initializable
 {
@@ -139,25 +140,36 @@ public class ViewLoanDetailsController implements Initializable
     
     }
 
-    private void updateScheduleList()
+    private void updateScheduleList() throws SQLException, IOException
     {
-        LocalDate loanCreated = LocalDate.parse(loan.getLoanCreated());
+        // LocalDate loanCreated = LocalDate.parse(loan.getLoanCreated());
 
-        int limit;
-        if(loan.getLoanType().equals(Loan.LOAN_TYPES[0]))
+        // int limit;
+        // if(loan.getLoanType().equals(Loan.LOAN_TYPES[0]))
+        // {
+        //     limit = Loan.SHORT_TERM_MONTHS_DUE;
+        // }
+        // else
+        // {
+        //     limit = Loan.LONG_TERM_MONTHS_DUE;
+        // }
+
+        // for(int i = 1; i <= limit; i++)
+        // {
+        //     loanCreated = loanCreated.plusMonths(1);
+        //     scheduleList.getItems().add(i  + ". " + loanCreated.toString());
+        // }
+
+        LoanPaymentSched loanPaymentSched = LoanPaymentSched.getLoanPaymentSched(loan.getLoanId());
+        
+        String[] scheds = loanPaymentSched.getLoanPaymentSchedule().split(",");
+        String[] status = loanPaymentSched.getLoanPaymentStatus().split(",");
+
+        for(int i = 1; i <= scheds.length; i++)
         {
-            limit = Loan.SHORT_TERM_MONTHS_DUE;
-        }
-        else
-        {
-            limit = Loan.LONG_TERM_MONTHS_DUE;
+            scheduleList.getItems().add(i + ". " + scheds[i-1] + " - " + status[i-1]);
         }
 
-        for(int i = 1; i <= limit; i++)
-        {
-            loanCreated = loanCreated.plusMonths(1);
-            scheduleList.getItems().add(i  + ". " + loanCreated.toString());
-        }
     }
 
     public void setLoan(Loan loan)
@@ -165,7 +177,15 @@ public class ViewLoanDetailsController implements Initializable
         this.loan = loan;
         updateCoopMemberDetails();
         updateLoanDetails();
-        updateScheduleList();
+        try {
+            updateScheduleList();
+        } catch (SQLException e1) {
+            
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            
+            e1.printStackTrace();
+        }
 
         try {
             updatePaymentTable();

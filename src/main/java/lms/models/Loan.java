@@ -130,6 +130,45 @@ public class Loan
         
     }
 
+    public static Boolean isCoopMemberAlreadyLoaned(int coopMemberId) throws SQLException, IOException
+    {
+        String sql = "SELECT * FROM loans WHERE coop_member_id = ? LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, coopMemberId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+
+        try 
+        {
+            int loanId = resultSet.getInt("loan_id");
+        } catch (SQLException e) 
+        {
+            if (e.getMessage().equals("ResultSet closed")) 
+            {
+                return false;    
+            }
+           
+        }
+        
+        
+
+        return true;
+    }
+
+    public static int getLoanIdFromDb(int coopMemberId) throws SQLException, IOException
+    {
+        String sql = "SELECT loan_id FROM loans WHERE coop_member_id = ? LIMIT 1";
+
+        PreparedStatement preparedStatement = Connect.getPreparedStatement(sql);
+        preparedStatement.setInt(1, coopMemberId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet.getInt("loan_id");
+    }
+
     public static void insertLoans(int coopMemberId, String loanType, double loanAmount) throws IOException
     {
         String sql = "INSERT INTO loans(coop_member_id, loan_type, loan_amount, loan_balance, service_fee, loan_status, loan_created, loan_due_date) "
@@ -221,7 +260,7 @@ public class Loan
 
     public static void updateLoanBalance() throws SQLException, IOException
     {
-        String sql = "SELECT loan_id, loan_status, loan_created, loan_type, loan_balance, loan_amount FROM loans";
+        String sql = "SELECT loan_id, loan_status, loan_type, loan_balance, loan_amount FROM loans";
 
         ResultSet resultSet = Connect.getStatement().executeQuery(sql);
         LocalDate todayDate = LocalDate.now();
@@ -229,41 +268,43 @@ public class Loan
         ArrayList<Integer> loanIds = new ArrayList<Integer>();
         ArrayList<Double> loanBalances = new ArrayList<Double>();
 
-        while (resultSet.next()) 
+       
+        
+        while(resultSet.next())
         {
+            int loanId = resultSet.getInt("loan_id");
+            LoanPaymentSched loanPaymentSched = LoanPaymentSched.getLoanPaymentSched(loanId);
+
             String loanStatus = resultSet.getString("loan_status");
+
             if(!loanStatus.equals(LOAN_STATUSES[1]))
             {
-                LocalDate loanCreated = LocalDate.parse(resultSet.getString("loan_created"));
+                String[] schedules = loanPaymentSched.getLoanPaymentSchedule().split(",");
+                String statuses = loanPaymentSched.getLoanPaymentStatus();
+                String[] arrStatues = statuses.split(",");
 
-                String loanType = resultSet.getString("loan_type");
-                int limit;
-                if(loanType.equals(LOAN_TYPES[0]))
-                {
-                    limit = SHORT_TERM_MONTHS_DUE;
-                }
-                else
-                {
-                    limit = LONG_TERM_MONTHS_DUE;
-                }
+                int schedLength = schedules.length;
 
-                for(int i = limit; i >= 1; i--)
+                for(int i = schedLength-1; i >= 0; i--)
                 {
-                    LocalDate dateChecker = loanCreated.plusMonths(i);
+                    LocalDate paymentSched = LocalDate.parse(schedules[i]);
 
-                    if(todayDate.isAfter(dateChecker) || todayDate.equals(dateChecker))
+                    if(!arrStatues[i].equals(LOAN_STATUSES[2]) && (todayDate.isAfter(paymentSched) || todayDate.equals(paymentSched)))
                     {
                         double loanBalance = resultSet.getDouble("loan_balance");
-                        double loanAmount = resultSet.getDouble("loan_amount");
+                        loanBalance += resultSet.getDouble("loan_amount") * INTEREST;
 
-                        loanBalance += loanAmount * INTEREST; 
-                        System.out.println(resultSet.getInt("loan_id"));
                         loanBalances.add(loanBalance);
-                        loanIds.add(resultSet.getInt("loan_id"));
-                        break;
-                    }
+                        loanIds.add(loanId);
 
+                        String changedStatus = LoanPaymentSched.changeStatusToDue(statuses);
+                        LoanPaymentSched.updateLoanPayment(loanId, changedStatus);
+
+                        break;
+                        
+                    }
                 }
+
             }
         }
         

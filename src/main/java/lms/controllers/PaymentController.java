@@ -3,6 +3,7 @@ package lms.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ import lms.helpers.FormValidation;
 import lms.models.CoopMember;
 import lms.models.Loan;
 import lms.models.LoanPayment;
+import lms.models.LoanPaymentSched;
 
 public class PaymentController implements Initializable
 {
@@ -201,8 +203,35 @@ public class PaymentController implements Initializable
             {
                 double currentBalance = loan.getLoanBalance() - paymentAmount;
                 LoanPayment loanPayment = new LoanPayment(loan.getLoanId(), paymentAmount, currentBalance);
-                loanPayment.insertPayment();
+                LocalDate today = LocalDate.now();
+                loanPayment.insertPayment(today);
                 loan.updateLoanBalance(currentBalance);
+
+                LoanPaymentSched loanPaymentSched = LoanPaymentSched.getLoanPaymentSched(loan.getLoanId());
+                String[] statuses = loanPaymentSched.getLoanPaymentStatus().split(",");
+                String status = "";
+                int length = statuses.length;
+
+                Boolean hasFound = false;
+                for(int i = 0; i < length; i++)
+                {
+                    if(!hasFound && statuses[i].equals(Loan.LOAN_STATUSES[0]))
+                    {
+                        status += Loan.LOAN_STATUSES[1];
+                        hasFound = true;
+                    }
+                    else
+                    {
+                        status += statuses[i];
+                    }
+
+                    if(i != (length - 1))
+                    {
+                        status += ",";
+                    }
+                }
+
+                LoanPaymentSched.updateLoanPayment(loan.getLoanId(), status);
 
                 cancel(new ActionEvent());
             }
