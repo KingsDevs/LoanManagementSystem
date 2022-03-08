@@ -215,7 +215,7 @@ public class PaymentController implements Initializable
                 Boolean hasFound = false;
                 for(int i = 0; i < length; i++)
                 {
-                    if(!hasFound && statuses[i].equals(Loan.LOAN_STATUSES[0]))
+                    if(!hasFound && !statuses[i].equals(Loan.LOAN_STATUSES[1]))
                     {
                         status += Loan.LOAN_STATUSES[1];
                         hasFound = true;
