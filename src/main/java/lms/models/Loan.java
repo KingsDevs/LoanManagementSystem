@@ -399,4 +399,79 @@ public class Loan
 
     }
 
+    private static ResultSet getLoanColLoanCreated() throws SQLException, IOException
+    {
+        String sql = "SELECT loan_created FROM loans";
+        ResultSet resultSet = Connect.getStatement().executeQuery(sql);
+
+        return resultSet;
+    }
+
+    public static int getLoanCountThisDay() throws SQLException, IOException
+    {
+        int count = 0;
+
+        ResultSet resultSet = getLoanColLoanCreated();
+        
+        String today = LocalDate.now().toString();
+
+        while (resultSet.next()) 
+        {
+            String loanCreated = resultSet.getString("loan_created");
+
+            if(loanCreated.equals(today))
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static int getLoanCountThisYear() throws SQLException, IOException
+    {
+        int count = 0;
+
+        ResultSet resultSet = getLoanColLoanCreated();
+        
+        String[] today = LocalDate.now().toString().split("-");
+
+        while (resultSet.next()) 
+        {
+            String[] loanCreated = resultSet.getString("loan_created").split("-");
+            
+
+            if(loanCreated[2].equals(today[2]))
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static int getLoanCountThisMonth() throws SQLException, IOException
+    {
+        int count = 0;
+
+        ResultSet resultSet = getLoanColLoanCreated();
+        
+        String[] today = LocalDate.now().toString().split("-");
+
+        while (resultSet.next()) 
+        {
+            String[] loanCreated = resultSet.getString("loan_created").split("-");
+            
+
+            if(loanCreated[1].equals(today[1]) && loanCreated[2].equals(today[2]))
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
+
 }

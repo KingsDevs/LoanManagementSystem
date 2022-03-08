@@ -44,3 +44,9 @@
 .tabHbox{
     -fx-background-color: rgb(147, 67, 252);
 }
+
+.reportPane{
+    -fx-background-color: rgb(150, 115, 197); 
+    -fx-background-radius: 1.5em;
+    -fx-text-fill : "White";
+}

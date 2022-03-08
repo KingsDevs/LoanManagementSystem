@@ -20,5 +20,6 @@ lms\helpers\Connect.class
 lms\controllers\PaymentController$1.class
 lms\controllers\MainController.class
 lms\controllers\PaymentController.class
+lms\controllers\ReportsController.class
 lms\controllers\AddLoanController$2.class
 lms\controllers\AddMemberMainController.class
