@@ -424,6 +424,7 @@ public class Loan
                 count++;
             }
         }
+        
 
         return count;
     }
@@ -441,11 +442,12 @@ public class Loan
             String[] loanCreated = resultSet.getString("loan_created").split("-");
             
 
-            if(loanCreated[2].equals(today[2]))
+            if(loanCreated[0].equals(today[0]))
             {
                 count++;
             }
         }
+        
 
         return count;
     }
@@ -463,12 +465,13 @@ public class Loan
             String[] loanCreated = resultSet.getString("loan_created").split("-");
             
 
-            if(loanCreated[1].equals(today[1]) && loanCreated[2].equals(today[2]))
+            if(loanCreated[1].equals(today[1]) && loanCreated[0].equals(today[0]))
             {
                 count++;
             }
         }
 
+       
         return count;
     }
 

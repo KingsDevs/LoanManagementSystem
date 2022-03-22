@@ -75,7 +75,8 @@
                 <executions>
                     <execution>
                         <!-- Default configuration for running -->
-                        <!-- Usage: mvn clean javafx:run -->
+                        <!-- Usage: mvn clean javafx:run 
+                                    mvn -T 4 clean javafx:run-->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>lms.App</mainClass>
