@@ -289,7 +289,7 @@ public class Loan
                 {
                     LocalDate paymentSched = LocalDate.parse(schedules[i]);
 
-                    if(!arrStatues[i].equals(LOAN_STATUSES[2]) && (todayDate.isAfter(paymentSched) || todayDate.equals(paymentSched)))
+                    if(!(arrStatues[i].equals(LOAN_STATUSES[1]) || arrStatues[i].equals(LOAN_STATUSES[2])) && (todayDate.isAfter(paymentSched) || todayDate.equals(paymentSched)))
                     {
                         double loanBalance = resultSet.getDouble("loan_balance");
                         loanBalance += resultSet.getDouble("loan_amount") * INTEREST;
