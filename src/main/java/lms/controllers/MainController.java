@@ -7,12 +7,15 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lms.App;
 import lms.models.Loan;
 
@@ -118,7 +121,21 @@ public class MainController
         logoutConfirmation.showAndWait().ifPresent( response -> {
             if(response == ButtonType.OK)
             {
-                System.out.println("Logging out");
+                FXMLLoader loader = new FXMLLoader(App.loadFxml("login"));
+
+                Scene scene = logoutBtn.getScene();
+                Window window = scene.getWindow();
+                Stage stage = (Stage)window;
+
+                Scene loginScene;
+                try {
+                    loginScene = new Scene(loader.load());
+                    stage.setScene(loginScene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // mainScene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
             }
         });
     }
