@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -113,7 +114,13 @@ public class MainController
     {
         Alert logoutConfirmation = new Alert(AlertType.CONFIRMATION);
         logoutConfirmation.setContentText("Do you really want to logout?");
-        logoutConfirmation.show();
+        
+        logoutConfirmation.showAndWait().ifPresent( response -> {
+            if(response == ButtonType.OK)
+            {
+                System.out.println("Logging out");
+            }
+        });
     }
 
 
