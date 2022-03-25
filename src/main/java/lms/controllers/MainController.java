@@ -7,7 +7,9 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import lms.App;
@@ -32,6 +34,10 @@ public class MainController
 
     @FXML
     private Button reportsBtn;
+
+    
+    @FXML
+    private Button logoutBtn;
 
     // private final int HOME_REF = 1;
     // private final int ADD_MEMBER_REF = 2;
@@ -100,6 +106,14 @@ public class MainController
         mainPane.setCenter(setPane);
 
         setTabActive(reportsBtn);
+    }
+
+    @FXML
+    void logout(ActionEvent event) 
+    {
+        Alert logoutConfirmation = new Alert(AlertType.CONFIRMATION);
+        logoutConfirmation.setContentText("Do you really want to logout?");
+        logoutConfirmation.show();
     }
 
 

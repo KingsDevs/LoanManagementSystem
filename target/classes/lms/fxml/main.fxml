@@ -72,6 +72,14 @@
                         <Insets left="40.0" top="20.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="logoutBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="53.0" prefWidth="195.0" styleClass="navbarBtn" stylesheets="@../css/main.css" text="Logout" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="40.0" top="20.0" />
+                     </padding>
+                  </Button>
                </children>
             </VBox>
          </left>
